@@ -1,30 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+<head>
+	<title>Bootstrap Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+		.button-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.button {
+			margin: 0 10px;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			font-size: 18px;
+			cursor: pointer;
+			background-color: #4CAF50;
+			color: white;
+		}
+	</style>
 
-    <title>Sketch</title>
+</head>
+<body style="background-image: url('./images/background.png'); background-size: cover;">
+  <div class="button-container">
+		<button class="button">Öğrenci Girişi</button>
+		<button class="button">Öğretmen Girişi</button>
+	</div>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-
-    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-    <script src="libraries/p5.js"></script>
-    <script src="libraries/p5.sound.js"></script>
-    <script src="libraries/Drawings/Drawings.js"></script>
-    <script src="libraries/NoteAndMusic.js"></script>
-    <script src="libraries/FreqToNoteNum.js"></script>
-    <script src="libraries/xmlToMusic.js"></script>
-    <script src="libraries/compare.js"></script>
-    <script src="libraries/metronom.js"></script>
-    <script src="libraries/marks.js"></script>
-  </head>
-
-  <body>
-    <h1>Pitch Detection Example</h1>
-    <p id='status'>Loading Model...</p>
-    <p id='result'>No pitch detected</p>
-    <script src="sketch.js"></script>
-  </body>
+</body>
 </html>
-

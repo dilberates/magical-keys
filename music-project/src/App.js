@@ -1,24 +1,33 @@
 import logo from './logo.svg';
 import './App.css';
-
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import SignUp from "./components/signup_component";
+import SignIn from "./components/login_component";
+import TeacherPage from "./components/teacher_page";
+import MainPage from './components/main_page';
+import TeacherAuthenticationPage from './components/teacher/teacher_authentication_page';
 function App() {
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={isLoggedIn == "true" ? <TeacherPage /> : <MainPage/>}
+          />
+          
+           <Route path="/index" element={<MainPage/>} />
+           <Route path="/authenticationPage" element={<TeacherAuthenticationPage/>} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/userDetails" element={<TeacherPage />} />
+        </Routes>
+    
+      </div>
+    </Router>
   );
 }
 

@@ -16,8 +16,8 @@ export default function MainPage() {
           backgroundImage: `url(${process.env.PUBLIC_URL + '/img/background.png'})` ,
           backgroundSize:'cover'
         }}>
-  <button className="button" >Öğrenci Giriş/Kayıt Sayfası</button>
-  <button className="button" onClick={navigateToSignInUp}>Öğretmen Giriş/Kayıt Sayfası</button>
+  <button className="buttonEnter" >Öğrenci Giriş/Kayıt Sayfası</button>
+  <button className="buttonEnter" onClick={navigateToSignInUp}>Öğretmen Giriş/Kayıt Sayfası</button>
 </div>
   );
 

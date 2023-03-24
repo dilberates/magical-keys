@@ -1,66 +1,143 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from "react";
 import "../../css/loginregister.css"//harici css dahil etme
+export default function TeacherAuthenticationPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [fullname, setFullname] = useState("");
 
 
-export default class TeacherAuthenticationPage extends Component {
-  
-  render() {
-    return (
-      <div className="authentication">
-        <div class ="row">
-	<div class="col-md-6 mx-auto p-0">
-		<div class="card">
-<div class="login-box">
-	<div class="login-snip">
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked/><label for="tab-1" class="tab">Giriş Yap</label>
-		<input id="tab-2" type="radio" name="tab" class="sign-up"/><label for="tab-2" class="tab">Kaydol</label>
-		<div class="login-space">
-			<div class="login">
-				<div class="group">
-					<label for="user" class="label">Kullanıcı Adı</label>
-					<input id="user" type="text" class="input"  placeholder="Kullanıcı adını gir"/>
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Parola</label>
-					<input id="pass" type="password" class="input" data-type="password" placeholder="Şifreni gir"/>
-				</div>
-				<div class="group">
-					<input id="check" type="checkbox" class="check" checked/>
-					<label for="check"><span class="icon"></span> Beni Hatırla</label>
-				</div>
-				<div class="group">
-					<input type="submit" class="button" value="Giriş Yap"/>
-				</div>
-				<div class="hr"></div>
-				<div class="foot">
-					<a href="#">Şifremi Unuttum?</a>
-				</div>
+  function handleSubmitForLogin(e) {
+    e.preventDefault();
+
+    console.log(username, password);
+    fetch("http://localhost:5000/login-user", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userRegister");
+        if (data.status == "ok") {
+          alert("login successful");
+          window.localStorage.setItem("token", data.data);
+          window.localStorage.setItem("loggedIn", true);
+
+          window.location.href = "./userDetails";
+        }
+      });
+  }
+
+
+  const handleSubmitForRegister = (e) => {
+    e.preventDefault();
+
+      console.log(username, password, confirmPassword, fullname);
+      fetch("http://localhost:5000/register", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          confirmPassword,
+          fullname,
+        
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data, "userRegister");
+          if (data.status == "ok") {
+            alert("Registration Successful");
+          } else {
+            alert("Something went wrong");
+          }
+        });
+  };
+
+  return (
+
+    <div className="authentication">
+        <div className ="row">
+	<div className="col-md-6 mx-auto p-0">
+		<div className="card">
+<div className="login-box">
+	<div className="login-snip">
+		<input id="tab-1" type="radio" name="tab" className="sign-in"/><label htmlFor="tab-1" className="tab">Giriş Yap</label>
+		<input id="tab-2" type="radio" name="tab" className="sign-up"/><label htmlFor="tab-2" className="tab">Kaydol</label>
+		<div className="login-space">
+			<div className="login">
+            
+       
+                <form onSubmit={handleSubmitForLogin}>
+                            <div className="group">
+                                <label htmlFor="user" className="label">Kullanıcı Adı</label>
+                                <input id="user" type="text" className="input"  placeholder="Kullanıcı adını gir" onChange={(e) => setUsername(e.target.value)}/>
+                            </div>
+                            <div className="group">
+                                <label htmlFor="pass" className="label">Parola</label>
+                                <input id="pass" type="password" className="input" data-type="password" placeholder="Şifreni gir" onChange={(e) => setPassword(e.target.value)}/>
+                            </div>
+                            <div className="group">
+                                <input id="check" type="checkbox" className="check" checked/>
+                                <label htmlFor="check"><span className="icon"></span> Beni Hatırla</label>
+                            </div>
+                            <div className="group">
+                                <input type="submit" className="button" value="Giriş Yap"/>
+                            </div>
+                            <div className="hr"></div>
+                            <div className="foot">
+                                <a href="#">Şifremi Unuttum?</a>
+                            </div>
+
+                </form>
+          
+				
 			</div>
-			<div class="sign-up-form">
-				<div class="group">
-					<label for="user" class="label">Kullanıcı Adı</label>
-					<input id="user" type="text" class="input" placeholder="Kullanıcı adını oluştur"/>
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Parola</label>
-					<input id="pass" type="password" class="input" data-type="password" placeholder="Şifreni oluştur"/>
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Parola Tekrar</label>
-					<input id="pass" type="password" class="input" data-type="password" placeholder="Şifrenle uyumlu şifreni tekrar gir"/>
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Mail Adresi</label>
-					<input id="pass" type="text" class="input" placeholder="Mail adresini gir"/>
-				</div>
-				<div class="group">
-					<input type="submit" class="button" value="Kayıt Ol"/>
-				</div>
-				<div class="hr"></div>
-				<div class="foot">
-					<label for="tab-1">Zaten Üye misin?</label>
-				</div>
-			</div>
+            <div className="sign-up-form">
+                <form onSubmit={handleSubmitForRegister}>
+                            <div className="group">
+                                <label htmlFor="user" className="label">Kullanıcı Adı</label>
+                                <input id="user" type="text" className="input" placeholder="Kullanıcı adını oluştur" onChange={(e) => setUsername(e.target.value)}/>
+                            </div>
+                            <div className="group">
+                                <label htmlFor="pass" className="label">Parola</label>
+                                <input id="pass" type="password" className="input" data-type="password" placeholder="Şifreni oluştur" onChange={(e) => setPassword(e.target.value)}/>
+                            </div>
+                            <div className="group">
+                                <label htmlFor="pass" className="label">Parola Tekrar</label>
+                                <input id="pass" type="password" className="input" data-type="password" placeholder="Şifrenle uyumlu şifreni tekrar gir" onChange={(e) => setConfirmPassword(e.target.value)}/>
+                            </div>
+                            <div className="group">
+                                <label htmlFor="pass" className="label">İsim Soyisim</label>
+                                <input id="pass" type="text" className="input" placeholder="Ad-Soyad" onChange={(e) => setFullname(e.target.value)}/>
+                            </div>
+                            <div className="group">
+                                <input type="submit" className="button" value="Kayıt Ol"/>
+                            </div>
+                            <div className="hr"></div>
+                            <div className="foot">
+                                <label htmlFor="tab-1">Zaten Üye misin?</label>
+                            </div>
+                
+                </form>
+
+          </div>
+			
 		</div>
 	</div>
 </div>   
@@ -73,7 +150,6 @@ export default class TeacherAuthenticationPage extends Component {
       
        
       </div>
-      
-    )
-  }
+   
+  );
 }

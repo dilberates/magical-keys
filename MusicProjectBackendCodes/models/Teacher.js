@@ -5,6 +5,7 @@ const TeacherSchema = new mongoose.Schema(
     password:String,
     confirmPassword:String,
     fullname:String,
+    email:String
     
 },{
     collection:"TeacherInfo",

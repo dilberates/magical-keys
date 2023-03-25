@@ -1,11 +1,14 @@
 import React, { Component, useState } from "react";
 import "../../css/loginregister.css"//harici css dahil etme
+
+
 export default function TeacherAuthenticationPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullname, setFullname] = useState("");
-
+  const [email, setEmail] = useState("");
+ 
 
   function handleSubmitForLogin(e) {
     e.preventDefault();
@@ -29,10 +32,11 @@ export default function TeacherAuthenticationPage() {
         console.log(data, "userRegister");
         if (data.status == "ok") {
           alert("login successful");
+        
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("loggedIn", true);
 
-          window.location.href = "./teacher_main_page";
+          window.location.href = "./teacher_main_page";//giriş başarılı ise bu sayfaya yönlendirsin
         }
       });
   }
@@ -41,7 +45,7 @@ export default function TeacherAuthenticationPage() {
   const handleSubmitForRegister = (e) => {
     e.preventDefault();
 
-      console.log(username, password, confirmPassword, fullname);
+      console.log(username, password, confirmPassword, fullname,email);
       fetch("http://localhost:5000/register-teacher", {
         method: "POST",
         crossDomain: true,
@@ -55,6 +59,7 @@ export default function TeacherAuthenticationPage() {
           password,
           confirmPassword,
           fullname,
+          email
         
         }),
       })
@@ -109,7 +114,7 @@ export default function TeacherAuthenticationPage() {
                             </div>
 
                 </form>
-          
+                
 				
 			</div>
             <div className="sign-up-form">
@@ -129,6 +134,10 @@ export default function TeacherAuthenticationPage() {
                             <div className="group">
                                 <label htmlFor="pass" className="label">İsim Soyisim</label>
                                 <input id="pass" type="text" className="input" placeholder="Ad-Soyad" onChange={(e) => setFullname(e.target.value)}/>
+                            </div>
+                            <div className="group">
+                                <label htmlFor="user" className="label">Mail Adresi</label>
+                                <input id="user" type="text" className="input" placeholder="Mail adresini yaz" onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                             <div className="group">
                                 <input type="submit" className="button" value="Kayıt Ol"/>

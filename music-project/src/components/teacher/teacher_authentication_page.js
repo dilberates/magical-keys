@@ -11,7 +11,7 @@ export default function TeacherAuthenticationPage() {
     e.preventDefault();
 
     console.log(username, password);
-    fetch("http://localhost:5000/login-user", {
+    fetch("http://localhost:5000/login-teacher", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -32,7 +32,7 @@ export default function TeacherAuthenticationPage() {
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("loggedIn", true);
 
-          window.location.href = "./userDetails";
+          window.location.href = "./teacher_main_page";
         }
       });
   }
@@ -42,7 +42,7 @@ export default function TeacherAuthenticationPage() {
     e.preventDefault();
 
       console.log(username, password, confirmPassword, fullname);
-      fetch("http://localhost:5000/register", {
+      fetch("http://localhost:5000/register-teacher", {
         method: "POST",
         crossDomain: true,
         headers: {
@@ -63,6 +63,10 @@ export default function TeacherAuthenticationPage() {
           console.log(data, "userRegister");
           if (data.status == "ok") {
             alert("Registration Successful");
+            setUsername("");
+            setPassword("");
+            setConfirmPassword("");
+            setFullname("");
           } else {
             alert("Something went wrong");
           }

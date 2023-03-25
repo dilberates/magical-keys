@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import "../../css/loginregister.css"//harici css dahil etme
-
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 export default function TeacherAuthenticationPage() {
   const [username, setUsername] = useState("");
@@ -78,6 +78,10 @@ export default function TeacherAuthenticationPage() {
         });
   };
 
+  const navigate = useNavigate();
+    const navigateToForgotMyPassword = () => {
+      navigate('/forgotMyPassword');
+    };
   return (
 
     <div className="authentication">
@@ -110,7 +114,7 @@ export default function TeacherAuthenticationPage() {
                             </div>
                             <div className="hr"></div>
                             <div className="foot">
-                                <a href="#">Şifremi Unuttum?</a>
+                                <a href="#" onClick={navigateToForgotMyPassword}>Şifremi Unuttum?</a>
                             </div>
 
                 </form>

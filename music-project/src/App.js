@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import MainPage from './components/main_page';
 import TeacherAuthenticationPage from './components/teacher/teacher_authentication_page';
 import TeacherMainPage from './components/teacher/teacher_main_page';
+import ForgotMyPassword from './components/forgot_my_password';
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
   return (
@@ -20,6 +21,7 @@ function App() {
            <Route path="/index" element={<MainPage/>} />
            <Route path="/teacherMainPage" element={<TeacherMainPage/>} />
            <Route path="/authenticationPage" element={<TeacherAuthenticationPage/>} />
+           <Route path="/forgotMyPassword" element={<ForgotMyPassword/>} />
      
         </Routes>
     

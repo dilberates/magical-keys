@@ -1,33 +1,68 @@
-import React, { Component } from 'react'
+import React, { Component,useState} from 'react'
 import "../../src/css/forgotmypassword.css"//harici css dahil etme
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 export default function ForgotMyPassword() {
+
+  const [email, setEmail] = useState("");
     const navigate = useNavigate();
     const navigateToMainPage = () => {
       navigate('/index');
     };
+    
+    function handleSubmitForForgotMyPassword(e) {
+      e.preventDefault();
+  
+      console.log(email);
+      fetch("http://localhost:5000/forgot-password", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("hello")
+          
+          console.log(data.status, "userRegister");
+          if (data.status == "ok") {
+            alert("Şifre sıfırlama ekranına yönlendiriliyorsunuz");
+
+            window.location.href = "/authenticationPage";
+          }
+          else{
+            alert("Mail gönderme işlemi başarısız!");
+          }
+        });
+    }
+    
     return (
         <div className="authentication ">
-             <div class="container d-flex flex-column forgotPasswordAlign">
-      <div class="row align-items-center justify-content-center
+             <div className="container d-flex flex-column forgotPasswordAlign">
+      <div className="row align-items-center justify-content-center
           min-vh-100">
-        <div class="col-12 col-md-8 col-lg-4">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <div class="mb-4">
+        <div className="col-12 col-md-8 col-lg-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="mb-4">
                 <h5>Şifreni mi unuttun?</h5>
-                <p class="mb-2">Hemen sistemde kayıtlı mail adresini ve şifreni mail adresine gelen talimatlara göre şifreni sıfırla...
+                <p className="mb-2">Hemen sistemde kayıtlı mail adresini ve şifreni mail adresine gelen talimatlara göre şifreni sıfırla...
                 </p>
               </div>
-              <form>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Mail Adresi</label>
+              <form onSubmit={handleSubmitForForgotMyPassword}>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">Mail Adresi</label>
                   <input type="email" id="email" class="form-control" name="email" placeholder="Sistemde kayıtlı mail adresini gir"
-                    required=""/>
+                    required="" onChange={(e) => setEmail(e.target.value)}/>
                 </div>
-                <div class="mb-3 d-grid">
-                  <button type="submit" class="btn btn-primary">
+                <div className="mb-3 d-grid">
+                  <button type="submit" className="btn btn-primary">
                     Şifreni Sıfırla
                   </button>
                 </div>

@@ -46,7 +46,9 @@ export default function TeacherAuthenticationPage() {
     e.preventDefault();
 
       console.log(username, password, confirmPassword, fullname,email);
-      fetch("http://localhost:5000/register-teacher", {
+      if(password.length!="" || confirmPassword.length!="" || username.length!="" || fullname.length!="" || email.length!=""){
+        if(password==confirmPassword){
+          fetch("http://localhost:5000/register-teacher", {
         method: "POST",
         crossDomain: true,
         headers: {
@@ -76,6 +78,17 @@ export default function TeacherAuthenticationPage() {
             alert("Something went wrong");
           }
         });
+
+        }
+        else{
+          alert("Şifre ve tekrar şifre alanları uyumlu olmalıdır.");
+        }
+
+      }
+      else{
+        alert("Alanlar boş geçilemez!");
+      }
+      
   };
 
   const navigate = useNavigate();

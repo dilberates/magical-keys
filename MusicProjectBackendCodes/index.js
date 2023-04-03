@@ -24,8 +24,38 @@ mongoose
   .catch((e) => console.log(e));
 
 require("./models/Teacher");
+require("./models/Student");
+
 
 const User = mongoose.model("TeacherInfo");
+const Student = mongoose.model("StudentInfo");
+
+app.post("/register-student", async (req, res) => {
+  const { username, password, confirmPassword, fullname,email} = req.body;
+
+  const encryptedPassword = await bcrypt.hash(password, 10);
+  const encryptedConfirmPassword = await bcrypt.hash(confirmPassword, 10);
+  try {
+      
+    const oldUser = await Student.findOne({ username });
+
+    if (oldUser) {
+      return res.json({ error: "User Exists" });
+    }
+    
+    await Student.create({
+      username,
+      password: encryptedPassword,
+      confirmPassword:encryptedConfirmPassword,
+      fullname,
+      email
+      
+    });
+    res.send({ status: "ok" });
+  } catch (error) {
+    res.send({ status: "error" });
+  }
+});
 
 app.post("/register-teacher", async (req, res) => {
     const { username, password, confirmPassword, fullname,email} = req.body;
@@ -58,6 +88,28 @@ app.post("/register-teacher", async (req, res) => {
     const { username, password } = req.body;
   
     const user = await User.findOne({ username });
+    console.log(user.username);
+    if (!user) {
+      return res.json({ error: "User Not found" });
+    }
+    if (await bcrypt.compare(password, user.password)) {
+      const token = jwt.sign({ username: user.username }, JWT_SECRET, {
+        expiresIn: "15m",
+      });
+  
+      if (res.status(201)) {
+        return res.json({ status: "ok", data: token });
+      } else {
+        return res.json({ error: "error" });
+      }
+    }
+    res.json({ status: "error", error: "InvAlid Password" });
+  });
+
+  app.post("/login-student", async (req, res) => {
+    const { username, password } = req.body;
+  
+    const user = await Student.findOne({ username });
     console.log(user.username);
     if (!user) {
       return res.json({ error: "User Not found" });

@@ -25,10 +25,12 @@ mongoose
 
 require("./models/Teacher");
 require("./models/Student");
+require("./models/Admin");
 
 
 const User = mongoose.model("TeacherInfo");
 const Student = mongoose.model("StudentInfo");
+const Admin = mongoose.model("Admin");
 
 app.post("/register-student", async (req, res) => {
   const { username, password, confirmPassword, fullname,email} = req.body;
@@ -84,10 +86,43 @@ app.post("/register-teacher", async (req, res) => {
     }
   });
 
-  app.post("/login-teacher", async (req, res) => {
+  app.post("/login-teacher", async (req, res) => { 
     const { username, password } = req.body;
   
     const user = await User.findOne({ username });
+    console.log(user.username);
+    if (!user) {
+      return res.json({ error: "User Not found" });
+    }
+    if (await bcrypt.compare(password, user.password)) {
+      const token = jwt.sign({ username: user.username }, JWT_SECRET, {
+        expiresIn: "15m",
+      });
+  
+      if (res.status(201)) {
+        return res.json({ status: "ok", data: token });
+      } else {
+        return res.json({ error: "error" });
+      }
+    }
+    res.json({ status: "error", error: "InvAlid Password" });
+  });
+
+  app.post("/login-admin", async (req, res) => {
+    const encryptedPassword = await bcrypt.hash("admin", 10);
+    const userName="admin";
+    const admin = await Admin.findOne({ userName });
+    if(!admin){
+      await Admin.create({
+        username:userName,
+        password: encryptedPassword,
+      });
+
+    }
+ 
+    const { username, password } = req.body;
+  
+    const user = await Admin.findOne({ username });
     console.log(user.username);
     if (!user) {
       return res.json({ error: "User Not found" });

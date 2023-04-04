@@ -1,0 +1,25 @@
+.authentication{
+	background:url(../../public/img/background.png) no-repeat center;
+	
+}
+.btn-color{
+    background-color:darkblue;
+    color: #fff;
+    
+  }
+  
+  .profile-image-pic{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+  }
+  
+  
+  
+  .cardbody-color{
+    background-color: #4CAF50;
+  }
+  
+  a{
+    text-decoration: none;
+  }

@@ -9,6 +9,9 @@ export default function StudentAuthenticationPage() {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
  
+  const navigateToStudentMainPage = () => {
+    navigate('/studentMainPage');
+  };
 
   function handleSubmitForLogin(e) {
     e.preventDefault();
@@ -36,7 +39,7 @@ export default function StudentAuthenticationPage() {
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("loggedIn", true);
 
-          window.location.href = "./student_main_page";//giriş başarılı ise bu sayfaya yönlendirsin
+          navigateToStudentMainPage();//giriş başarılı ise bu sayfaya yönlendirsin
         }
       });
   }

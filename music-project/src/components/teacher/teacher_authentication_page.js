@@ -8,7 +8,9 @@ export default function TeacherAuthenticationPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
- 
+  const navigateToTeacherMainPage = () => {
+    navigate('/teacherMainPage');
+  };
 
   function handleSubmitForLogin(e) {
     e.preventDefault();
@@ -36,7 +38,8 @@ export default function TeacherAuthenticationPage() {
           window.localStorage.setItem("token", data.data);
           window.localStorage.setItem("loggedIn", true);
 
-          window.location.href = "./teacher_main_page";//giriş başarılı ise bu sayfaya yönlendirsin
+          navigateToTeacherMainPage(); //giriş başarılı ise bu sayfaya yönlendirsin
+          
         }
       });
   }
@@ -46,7 +49,9 @@ export default function TeacherAuthenticationPage() {
     e.preventDefault();
 
       console.log(username, password, confirmPassword, fullname,email);
-      fetch("http://localhost:5000/register-teacher", {
+      if(password.length!="" || confirmPassword.length!="" || username.length!="" || fullname.length!="" || email.length!=""){
+        if(password==confirmPassword){
+          fetch("http://localhost:5000/register-teacher", {
         method: "POST",
         crossDomain: true,
         headers: {
@@ -76,6 +81,17 @@ export default function TeacherAuthenticationPage() {
             alert("Something went wrong");
           }
         });
+
+        }
+        else{
+          alert("Şifre ve tekrar şifre alanları uyumlu olmalıdır.");
+        }
+
+      }
+      else{
+        alert("Alanlar boş geçilemez!");
+      }
+      
   };
 
   const navigate = useNavigate();

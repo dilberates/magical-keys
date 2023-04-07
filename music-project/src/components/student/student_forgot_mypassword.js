@@ -1,8 +1,8 @@
 import React, { Component,useState} from 'react'
-import "../../src/css/forgotmypassword.css"//harici css dahil etme
+import "../../css/forgotmypassword.css"//harici css dahil etme
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Routes, Route, useNavigate} from 'react-router-dom';
-export default function ForgotMyPassword() {
+export default function StudentForgotMyPassword() {
 
   const [email, setEmail] = useState("");
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function ForgotMyPassword() {
       e.preventDefault();
   
       console.log(email);
-      fetch("http://localhost:5000/forgot-password-teacher", {
+      fetch("http://localhost:5000/forgot-password-student", {
         method: "POST",
         crossDomain: true,
         headers: {
@@ -32,7 +32,7 @@ export default function ForgotMyPassword() {
           
           console.log(data.status, "userRegister");
           if (data.status == "ok") {
-            alert("Şifre sıfırlama ekranına yönlendiriliyorsunuz");
+            alert("Hesaba giriş yapabileceğiniz geçici şifreniz mail adresinize gönderilmiştir.");
 
             window.location.href = "/authenticationPage";
           }

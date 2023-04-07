@@ -290,6 +290,35 @@ app.post("/register-teacher", async (req, res) => {
     }
   });
 
+require("./models/Level");
+
+const Level = mongoose.model("Level");
+
+app.post("/add-level", async (req, res) => {
+  const { level_title, level_description} = req.body;
+
+  console.log("level title "+level_title);
+  const levelStatus = true;
+  try {
+      
+    const oldLevel = await Level.findOne({ level_title });
+
+    if (oldLevel) {
+      return res.json({ error: "Level Exists" });
+    }
+    
+    await Level.create({
+      level_title,
+      level_description,
+      level_status:levelStatus
+    });
+    res.send({ status: "ok" });
+  } catch (error) {
+    res.send({ status: "error" });
+  }
+});
+
+
 
 
 app.listen(5000,()=>{

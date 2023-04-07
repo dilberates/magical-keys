@@ -83,7 +83,7 @@ export default function StudentAuthenticationPage() {
 
   const navigate = useNavigate();
     const navigateToForgotMyPassword = () => {
-      navigate('/forgotMyPassword');
+      navigate('/studentForgotMyPassword');
     };
   return (
 

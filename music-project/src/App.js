@@ -10,6 +10,8 @@ import StudentAuthenticationPage from './components/student/student_authenticati
 import StudentMainPage from './components/student/student_main_page';
 import AdminAuthenticationPage from './components/admin/admin_authentication_page';
 import AdminMainPage from './components/admin/admin_main_page';
+import TeacherForgotMyPassword from './components/teacher/teacher_forgot_mypassword';
+import StudentForgotMyPassword from './components/student/student_forgot_mypassword';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -31,6 +33,8 @@ function App() {
            <Route path="/forgotMyPassword" element={<ForgotMyPassword/>} />
            <Route path="/admin-login" element={<AdminAuthenticationPage/>} />
            <Route path="/adminMainPage" element={<AdminMainPage/>} />
+           <Route path="/teacherForgotMyPassword" element={<TeacherForgotMyPassword/>} />
+           <Route path="/studentForgotMyPassword" element={<StudentForgotMyPassword/>} />
      
         </Routes>
     

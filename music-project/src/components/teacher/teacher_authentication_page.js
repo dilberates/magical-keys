@@ -96,7 +96,7 @@ export default function TeacherAuthenticationPage() {
 
   const navigate = useNavigate();
     const navigateToForgotMyPassword = () => {
-      navigate('/forgotMyPassword');
+      navigate('/teacherForgotMyPassword');
     };
   return (
 

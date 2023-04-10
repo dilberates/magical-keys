@@ -29,6 +29,7 @@ require("../../../models/Level");
 
 const Level = mongoose.model("Level");
 
+//veri ekleme
 router.post("/add-level",async function(req,res){
     const { level_title, level_description} = req.body;
 
@@ -55,6 +56,99 @@ router.post("/add-level",async function(req,res){
     res.send({ status: "error" });
   }
     
+});
+
+
+
+// CREATE Student
+router.post("/create-level", (req, res, next) => {
+  Level.create(req.body, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      console.log(data);
+      res.json(data);
+    }
+  });
+});
+  
+//read levels- veri listeleme
+router.get('/levels', async (req, res) => {
+  try {
+    const levels = await Level.find();
+   
+    console.log("Veriler 1")
+    console.log(levels);
+    res.send(levels);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// UPDATE student
+router
+  .route("/update-level/:id")
+  // Get Single Student
+  .get((req, res) => {
+    Level.findById(
+        req.params.id, (error, data) => {
+      if (error) {
+        return next(error);
+      } else {
+        res.json(data);
+      }
+    });
+  })
+  
+  // Update Student Data
+  .put((req, res, next) => {
+    Level.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      (error, data) => {
+        if (error) {
+          return next(error);
+          console.log(error);
+        } else {
+          res.json(data);
+          console.log("Student updated successfully !");
+        }
+      }
+    );
+  });
+  
+// Delete Level
+router.delete("/delete-level/:id", async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    const removedValue = await Level.findByIdAndRemove(req.params.id);
+    console.log(removedValue);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+
+
+});
+
+//read levels- veri listeleme
+router.get('/levels', async (req, res) => {
+  try {
+    const levels = await Level.find();
+   
+    console.log("Veriler 1")
+    console.log(levels);
+    res.send(levels);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports=router;

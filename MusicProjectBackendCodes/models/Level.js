@@ -9,4 +9,5 @@ const LevelSchema = new mongoose.Schema(
     collection:"Level",
 }
 );
+
 mongoose.model("Level",LevelSchema);

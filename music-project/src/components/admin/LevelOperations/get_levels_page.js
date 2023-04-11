@@ -1,6 +1,6 @@
 import React, { Component,useState,useEffect } from 'react'
-import AdminMenuLayout from './admin_menu_layout';
-import AdminSidebarLayout from './admin_sidebar_layout';
+import AdminMenuLayout from '../admin_menu_layout';
+import AdminSidebarLayout from '../admin_sidebar_layout';
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import LevelTableRow from "./LevelTableRow";
@@ -47,9 +47,6 @@ export default function GetLevelsPage()  {
 	</Table>
 	</div>
   <Button onClick={getAllLevels} size="sm" variant="success">Yeni Seviye</Button>
-        
-        
-
         </main>
       </div>
     )

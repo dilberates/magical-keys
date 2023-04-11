@@ -1,6 +1,6 @@
 import React, { Component,useState } from 'react';
-import AdminMenuLayout from './admin_menu_layout';
-import AdminSidebarLayout from './admin_sidebar_layout';
+import AdminMenuLayout from '../admin_menu_layout';
+import AdminSidebarLayout from '../admin_sidebar_layout';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 export default function AddLevelsPage()  {
   const [level_title, setLevelTitle] = useState("");

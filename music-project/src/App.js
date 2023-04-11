@@ -12,8 +12,10 @@ import AdminAuthenticationPage from './components/admin/admin_authentication_pag
 import AdminMainPage from './components/admin/admin_main_page';
 import TeacherForgotMyPassword from './components/teacher/teacher_forgot_mypassword';
 import StudentForgotMyPassword from './components/student/student_forgot_mypassword';
-import GetLevelsPage from './components/admin/get_levels_page';
-import AddLevelsPage from './components/admin/add_levels_page';
+import GetLevelsPage from './components/admin/LevelOperations/get_levels_page';
+import AddLevelsPage from './components/admin/LevelOperations/add_levels_page';
+import EditLevelPage from './components/admin/LevelOperations/edit_level_page';
+import AddContentPage from './components/admin/ContentOperations/add_content_page';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -39,6 +41,8 @@ function App() {
            <Route path="/studentForgotMyPassword" element={<StudentForgotMyPassword/>} />
            <Route path="/getLevelsPage" element={<GetLevelsPage/>} />
            <Route path="/addNewLevel" element={<AddLevelsPage/>} />
+           <Route path="/edit-level/:id" element={<EditLevelPage/>} />
+           <Route path="/addNewContent" element={<AddContentPage/>} />
      
         </Routes>
     

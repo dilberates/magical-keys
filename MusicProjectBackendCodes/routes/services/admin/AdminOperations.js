@@ -29,6 +29,10 @@ require("../../../models/Level");
 
 const Level = mongoose.model("Level");
 
+require("../../../models/Content");
+
+const Content = mongoose.model("Content");
+
 //veri ekleme
 router.post("/add-level",async function(req,res){
     const { level_title, level_description} = req.body;
@@ -56,6 +60,88 @@ router.post("/add-level",async function(req,res){
     res.send({ status: "error" });
   }
     
+});
+// Veri listeleme endpoint'i
+router.get('/content-levels',async (req, res) => {
+  /*
+  await Level.find({}).toArray((err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+  */
+  
+
+  try {
+    const result = await Level.find();
+   
+    console.log("Seviyeler")
+    console.log(result);
+    res.send(result);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+ 
+});
+
+// Veri kaydetme endpoint'i
+router.post("/add-new-content",async function(req,res){
+  const { content_title, content_description,selectedValue} = req.body;
+  console.log("content title "+content_title);
+console.log("level id "+selectedValue);
+const contentStatus = true;
+
+try {
+  
+  const oldContent = await Level.findOne({ content_title });
+
+  if (oldContent) {
+    return res.json({ error: "Content Exists" });
+  }
+  
+  await Content.create({
+    content_title,
+    content_description,
+    level_id:selectedValue,
+    content_status:contentStatus
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
+});
+//New Content Add
+//veri ekleme
+router.post("/add-content",async function(req,res){
+  const { content_title,content_description, level_id} = req.body;
+
+const contentStatus = true;
+
+try {
+  
+  const oldContent = await Content.findOne({ content_title });
+
+  if (oldContent) {
+    return res.json({ error: "Content Exists" });
+  }
+  
+  await Content.create({
+    content_title,
+    content_description,
+    level_id,
+    content_status:contentStatus
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
 });
 
 
@@ -91,8 +177,9 @@ router.get('/levels', async (req, res) => {
 router
   .route("/update-level/:id")
   // Get Single Student
-  .get((req, res) => {
-    Level.findById(
+  .get(async (req, res) => {
+    console.log("Verileri getir apiye girdi");
+    await Level.findById(
         req.params.id, (error, data) => {
       if (error) {
         return next(error);
@@ -103,8 +190,8 @@ router
   })
   
   // Update Student Data
-  .put((req, res, next) => {
-    Level.findByIdAndUpdate(
+  .put(async (req, res, next) => {
+    await Level.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,

@@ -51,7 +51,7 @@ export default function AddContentPage()  {
           console.log(data, "addLevel");
           if (data.status == "ok") {
             alert("Yeni kayıt başarıyla eklendi.");
-            //navigateToLevelListPage();
+            navigateToContentListPage();
            
           } else {
             alert("Something went wrong");
@@ -62,21 +62,11 @@ export default function AddContentPage()  {
       else{
         alert("Alanlar boş geçilemez!");
       }
-/*
-    axios.post('http://localhost:5000/add-new-content', {
-      content_title,
-      content_description,
-      id: selectedValue //event.target.value
-    })
-    .then(res => {
-      console.log(res.data);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-    */
   }
-
+  const navigate = useNavigate();
+  const navigateToContentListPage = () => {
+  navigate('/getContentsPage');
+};
  
     return (
       <div>admin main page

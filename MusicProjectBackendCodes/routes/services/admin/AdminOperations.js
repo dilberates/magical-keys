@@ -173,6 +173,45 @@ router.get('/levels', async (req, res) => {
   }
 });
 
+//read levels- veri listeleme
+router.get('/contents', async (req, res) => {
+  try {
+    
+    //ilişkili tablodan değer getirme
+   const contentsValues = await Content.find().populate('level_id').exec();
+   console.log("Contents Değerleri");
+   console.log(contentsValues);
+  
+  
+    res.send(contentsValues);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//UPDATE CONTENT
+router
+  .route("/update-content/:id")
+  // Get Single Student
+  .put(async (req, res) => {
+    console.log("Verileri güncelle apiye girdi");
+    await Content.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(content => res.json(content))
+    .catch(err => res.status(500).json({ error: err.message }));
+  });
+
+//DELETE CONTENT
+router
+  .route("/delete-content/:id")
+  // Get Single Student
+  .delete(async (req, res) => {
+    console.log("Verileri sil apiye girdi");
+    await Content.findByIdAndDelete(req.params.id)
+    .then(() => res.json({ message: 'Content deleted successfully' }))
+    .catch(err => res.status(500).json({ error: err.message }));
+  });
 // UPDATE student
 router
   .route("/update-level/:id")

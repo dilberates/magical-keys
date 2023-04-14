@@ -3,8 +3,14 @@ const ContentSchema = new mongoose.Schema(
     {
     content_title:String,
     content_description:String,
-    level_id:String,
-    content_status:Boolean
+    content_status:Boolean,
+    //ilişkili tablo bu şejilde verilir
+    level_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Level'
+      }
+
+
     
 },{
     collection:"Content",

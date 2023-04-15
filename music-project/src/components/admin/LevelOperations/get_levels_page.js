@@ -10,7 +10,7 @@ export default function GetLevelsPage()  {
   const [levels, setLevels] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/levels')
+    axios.get('http://localhost:27017/levels')
       .then(response => setLevels(response.data))
       .catch(error => console.error(error));
   }, []);

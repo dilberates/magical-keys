@@ -13,7 +13,7 @@ const navigateToLevelListPage = () => {
 const deleteLevel = () => {
 	axios
 	.delete(
-"http://localhost:5000/delete-level/" + _id)
+"http://localhost:27017/delete-level/" + _id)
 	.then((res) => {
 		console.log("id:"+_id);
 		if (res.status === 200) {

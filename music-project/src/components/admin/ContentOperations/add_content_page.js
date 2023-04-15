@@ -9,7 +9,7 @@ export default function AddContentPage()  {
   const [selectedValue, setSelectedValue] = useState("");
   const [options, setOptions] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/content-levels')
+    axios.get('http://localhost:27017/content-levels')
       .then(res => {
         setOptions(res.data);
         console.log(options);
@@ -29,7 +29,7 @@ export default function AddContentPage()  {
 
     if(content_title.length!="" || content_description.length!=""){
         
-        fetch("http://localhost:5000/add-new-content", {
+        fetch("http://localhost:27017/add-new-content", {
         method: "POST",
         crossDomain: true,
         headers: {

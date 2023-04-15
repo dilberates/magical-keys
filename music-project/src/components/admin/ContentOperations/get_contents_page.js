@@ -14,7 +14,7 @@ export default function GetContentsPage()  {
   const [formData, setFormData] = useState({ content_title: '', content_description: '',level_id:'' });
 
   useEffect(() => {
-    axios.get('http://localhost:5000/contents')
+    axios.get('http://localhost:27017/contents')
       .then(response => setContents(response.data))
       .catch(error => console.error(error));
   }, []);
@@ -31,7 +31,7 @@ const navigateToContentListPage = () => {
   navigate('/getContentsPage');
 };
 function deleteContent(id) {
-    axios.delete(`http://localhost:5000/delete-content/${id}`)
+    axios.delete(`http://localhost:27017/delete-content/${id}`)
       .then(response => {
         console.log(response.data);
         alert("Başarıyla silindi.");
@@ -63,7 +63,7 @@ function deleteContent(id) {
   };
 
   function updateContent(id,updatedData) {
-    axios.put(`http://localhost:5000/update-content/${id}`,updateContent)
+    axios.put(`http://localhost:27017/update-content/${id}`,updateContent)
       .then(response => {
         console.log(response.data);
         setContents(contents.map(content => content._id === response.data._id ? response.data : content));
@@ -78,7 +78,7 @@ function deleteContent(id) {
   const [selectedValue, setSelectedValue] = useState("");
   const [options, setOptions] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/content-levels')
+    axios.get('http://localhost:27017/content-levels')
       .then(res => {
         setOptions(res.data);
         console.log(options);

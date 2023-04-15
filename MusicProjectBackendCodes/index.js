@@ -18,6 +18,6 @@ app.use(studentAuthenticationRoutes);
 const teacherAuthenticationRoutes = require("./routes/services/teacher/TeacherAuthenticationOperations");
 app.use(teacherAuthenticationRoutes);
 
-app.listen(5000,()=>{
+app.listen(27017,()=>{
     console.log("Server started");
 })

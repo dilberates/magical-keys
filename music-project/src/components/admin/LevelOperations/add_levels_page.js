@@ -15,7 +15,7 @@ export default function AddLevelsPage()  {
       console.log(level_title, level_description);
       if(level_title.length!="" || level_description.length!=""){
         
-        fetch("http://localhost:5000/add-level", {
+        fetch("http://localhost:27017/add-level", {
         method: "POST",
         crossDomain: true,
         headers: {

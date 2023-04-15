@@ -18,7 +18,7 @@ const onSubmit = (levelObject) => {
 	console.log(levelObject);
 	axios
 	.put(
-		"http://localhost:5000/update-level/" +
+		"http://localhost:27017/update-level/" +
 		props.match.params.id,
 		levelObject
 	)
@@ -37,7 +37,7 @@ useEffect(() => {
 	console.log(props.match.params);
 	axios
 	.get(
-		"http://localhost:5000/update-level/"
+		"http://localhost:27017/update-level/"
 		+ props.match.params.id
 	)
 	.then((res) => {

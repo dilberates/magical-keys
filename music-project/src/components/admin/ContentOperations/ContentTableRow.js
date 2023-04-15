@@ -13,7 +13,7 @@ const navigateToContentListPage = () => {
 const deleteContent = () => {
 	axios
 	.delete(
-"http://localhost:5000/delete-content/" + _id)
+"http://localhost:27017/delete-content/" + _id)
 	.then((res) => {
 		console.log("id:"+_id);
 		if (res.status === 200) {

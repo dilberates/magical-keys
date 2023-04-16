@@ -7,6 +7,10 @@ const SubContentSchema = new mongoose.Schema(
     content_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Content'
+      },
+      type_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ContentType'
       }
     
     

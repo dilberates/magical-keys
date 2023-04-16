@@ -146,7 +146,7 @@ try {
 
 
 
-// CREATE Student
+// CREATE LEVEL
 router.post("/create-level", (req, res, next) => {
   Level.create(req.body, (error, data) => {
     if (error) {

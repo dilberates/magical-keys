@@ -1279,7 +1279,7 @@
     [ARROW_RIGHT_KEY$1]: DIRECTION_LEFT
   };
   const Default$b = {
-    interval: 27017,
+    interval: 5000,
     keyboard: true,
     pause: 'hover',
     ride: false,
@@ -6861,7 +6861,7 @@
   const Default = {
     animation: true,
     autohide: true,
-    delay: 27017
+    delay: 5000
   };
   /**
    * Class definition

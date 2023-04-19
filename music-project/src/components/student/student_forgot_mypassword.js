@@ -14,7 +14,7 @@ export default function StudentForgotMyPassword() {
       e.preventDefault();
   
       console.log(email);
-      fetch("http://localhost:27017/forgot-password-student", {
+      fetch("http://localhost:5001/forgot-password-student", {
         method: "POST",
         crossDomain: true,
         headers: {

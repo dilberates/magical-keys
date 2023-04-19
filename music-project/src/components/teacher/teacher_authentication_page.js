@@ -16,7 +16,7 @@ export default function TeacherAuthenticationPage() {
     e.preventDefault();
 
     console.log(username, password);
-    fetch("http://localhost:27017/login-teacher", {
+    fetch("http://localhost:5001/login-teacher", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -51,7 +51,7 @@ export default function TeacherAuthenticationPage() {
       console.log(username, password, confirmPassword, fullname,email);
       if(password.length!="" || confirmPassword.length!="" || username.length!="" || fullname.length!="" || email.length!=""){
         if(password==confirmPassword){
-          fetch("http://localhost:27017/register-teacher", {
+          fetch("http://localhost:5001/register-teacher", {
         method: "POST",
         crossDomain: true,
         headers: {

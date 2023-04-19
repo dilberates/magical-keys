@@ -15,7 +15,7 @@ export default function AdminAuthenticationPage() {
     e.preventDefault();
 
     console.log(username, password);
-    fetch("http://localhost:27017/login-admin", {
+    fetch("http://localhost:5001/login-admin", {
       method: "POST",
       crossDomain: true,
       headers: {

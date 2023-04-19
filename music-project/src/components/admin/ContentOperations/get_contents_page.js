@@ -14,7 +14,7 @@ export default function GetContentsPage()  {
   const [formData, setFormData] = useState({ content_title: '', content_description: '',level_id:'' });
 
   useEffect(() => {
-    axios.get('http://localhost:27017/contents')
+    axios.get('http://localhost:5001/contents')
       .then(response => setContents(response.data))
       .catch(error => console.error(error));
   }, []);
@@ -78,7 +78,7 @@ function deleteContent(id) {
   const [selectedValue, setSelectedValue] = useState("");
   const [options, setOptions] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:27017/content-levels')
+    axios.get('http://localhost:5001/content-levels')
       .then(res => {
         setOptions(res.data);
         console.log(options);

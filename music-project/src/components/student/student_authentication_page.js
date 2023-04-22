@@ -10,7 +10,7 @@ export default function StudentAuthenticationPage() {
   const [email, setEmail] = useState("");
  
   const navigateToStudentMainPage = () => {
-    navigate('/studentMainPage');
+    navigate('/getStudentLessons');
   };
 
   function handleSubmitForLogin(e) {

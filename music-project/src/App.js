@@ -17,6 +17,7 @@ import AddLevelsPage from './components/admin/LevelOperations/add_levels_page';
 import EditLevelPage from './components/admin/LevelOperations/edit_level_page';
 import AddContentPage from './components/admin/ContentOperations/add_content_page';
 import GetContentsPage from './components/admin/ContentOperations/get_contents_page';
+import StudentLessonsPage from './components/student/student_lessons_page';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -46,6 +47,7 @@ function App() {
            <Route path="/addNewContent" element={<AddContentPage/>} />
            <Route path="/getContentsPage" element={<GetContentsPage/>} />
            <Route path="/addNewContent" element={<AddContentPage/>} />
+           <Route path="/getStudentLessons" element={<StudentLessonsPage></StudentLessonsPage>} />
      
         </Routes>
     

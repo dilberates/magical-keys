@@ -8,7 +8,7 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-
+const MongoClient = require('mongodb').MongoClient;
 
 const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
@@ -22,12 +22,23 @@ mongoose
   })
   .then(() => {
     console.log("Connected to database");
+
   })
   .catch((e) => console.log(e));
+
 
 require("../../../models/Level");
 
 const Level = mongoose.model("Level");
+
+function getNextSequenceValue(sequenceName){
+  var sequenceDocument = Level.findAndModify({
+     query:{_id: sequenceName },
+     update: {$inc:{sequence_value:1}},
+     new:true
+  });
+  return sequenceDocument.sequence_value;
+}
 
 require("../../../models/Content");
 
@@ -42,11 +53,13 @@ router.post("/add-level",async function(req,res){
 
   try {
     
+    
     const oldLevel = await Level.findOne({ level_title });
 
     if (oldLevel) {
       return res.json({ error: "Level Exists" });
     }
+
     
     await Level.create({
       level_title,

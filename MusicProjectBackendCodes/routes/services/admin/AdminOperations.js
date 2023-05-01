@@ -46,7 +46,7 @@ const Content = mongoose.model("Content");
 
 //veri ekleme
 router.post("/add-level",async function(req,res){
-    const { level_title, level_description} = req.body;
+    const { level_title, level_description, level_image} = req.body;
 
   console.log("level title "+level_title);
   const levelStatus = true;
@@ -64,7 +64,8 @@ router.post("/add-level",async function(req,res){
     await Level.create({
       level_title,
       level_description,
-      level_status:levelStatus
+      level_status:levelStatus,
+      level_image
     });
     
 

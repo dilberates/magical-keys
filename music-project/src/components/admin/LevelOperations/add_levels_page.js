@@ -5,6 +5,7 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 export default function AddLevelsPage()  {
   const [level_title, setLevelTitle] = useState("");
   const [level_description, setLevelDescription] = useState("");
+  const [level_image, setLevelImage] = useState("");
   const navigate = useNavigate();
   const navigateToLevelListPage = () => {
     navigate('/getLevelsPage');
@@ -25,7 +26,8 @@ export default function AddLevelsPage()  {
         },
         body: JSON.stringify({
           level_title,
-          level_description
+          level_description,
+          level_image
         }),
       })
         .then((res) => res.json())
@@ -66,6 +68,12 @@ export default function AddLevelsPage()  {
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={(e) => setLevelDescription(e.target.value)}></textarea>
   </div>
   <br></br>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Görsel</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Görsel" onChange={(e) => setLevelImage(e.target.value)}/>
+  </div>
+  <br>
+  </br>
   <button type="submit" class="btn btn-primary">Kaydet</button>
 </form>
 

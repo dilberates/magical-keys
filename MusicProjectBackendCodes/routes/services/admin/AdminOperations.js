@@ -116,6 +116,29 @@ router.get('/content-levels',async (req, res) => {
  
 });
 
+router.get('/sub-content-types',async (req, res) => {
+  /*
+  await Level.find({}).toArray((err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+  */
+  
+
+  try {
+    const result = await Type.find();
+   
+    console.log("Tipler")
+    console.log(result);
+    res.send(result);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+ 
+});
+
 // Veri kaydetme endpoint'i
 router.post("/add-new-content",async function(req,res){
   const { content_title, content_description,selectedValue} = req.body;
@@ -136,6 +159,37 @@ try {
     content_description,
     level_id:selectedValue,
     content_status:contentStatus
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
+});
+
+// Veri kaydetme endpoint'i
+router.post("/add-new-sub-content",async function(req,res){
+  const { sub_content_title,selectedValue,selectedValue2} = req.body;
+console.log("type id "+selectedValue);
+console.log("type id "+selectedValue2);
+const subContentStatus = true;
+
+try {
+  
+  const oldContent = await Type.findOne({ sub_content_title });
+  const oldContent2 = await Level.findOne({ sub_content_title });
+
+  if (oldContent && oldContent2) {
+    return res.json({ error: "Content Exists" });
+  }
+  
+  await Content.create({
+    sub_content_title,
+   type_id:selectedValue,
+   content_id:selectedValue2,
+    sub_content_status:contentStatus
   });
   
 

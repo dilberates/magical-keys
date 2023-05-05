@@ -8,6 +8,7 @@ export default function AddSubContentPage()  {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedValue2, setSelectedValue2] = useState("");
   const [options, setOptions] = useState([]);
+  const [options2, setOptions2] = useState([]);
   useEffect(() => {
     axios.get('http://localhost:5001/sub-content-types')
       .then(res => {
@@ -18,7 +19,16 @@ export default function AddSubContentPage()  {
         console.log(err);
       });
   }, []);
-
+  useEffect(() => {
+    axios.get('http://localhost:5001/content-levels')
+      .then(res => {
+        setOptions2(res.data);
+        console.log(options);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
   const handleSubmitAddNewSubContent = (e) => {
     console.log("Buraya girdi1")
     e.preventDefault();
@@ -95,7 +105,7 @@ export default function AddSubContentPage()  {
   <div class="form-group">
     <select value={selectedValue2} onChange={(e) => setSelectedValue2(e.target.value)} class="form-control">
     <option value="">Seçiniz</option>
-        {options.map(option => (
+        {options2.map(option => (
             <option key={option._id} value={option._id}>{option.level_title}</option>
         ))}
     </select>

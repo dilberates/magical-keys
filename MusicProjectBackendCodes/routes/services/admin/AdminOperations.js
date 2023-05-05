@@ -29,6 +29,9 @@ require("../../../models/Level");
 
 const Level = mongoose.model("Level");
 
+require("../../../models/ContentType");
+const Type = mongoose.model("ContentType");
+
 require("../../../models/Content");
 
 const Content = mongoose.model("Content");
@@ -60,6 +63,34 @@ router.post("/add-level",async function(req,res){
     res.send({ status: "error" });
   }
     
+});
+
+// Type Ekleme 
+router.post("/add-type",async function(req,res){
+  const { type_name} = req.body;
+
+console.log("type name "+type_name);
+const type_status = true;
+
+try {
+  
+  const oldType = await Type.findOne({ type_name });
+
+  if (oldType) {
+    return res.json({ error: "Type Exists" });
+  }
+  
+  await Type.create({
+    type_name,
+    type_status:type_status
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
 });
 // Veri listeleme endpoint'i
 router.get('/content-levels',async (req, res) => {
@@ -173,6 +204,21 @@ router.get('/levels', async (req, res) => {
   }
 });
 
+//read types- veri listeleme
+router.get('/types', async (req, res) => {
+  try {
+    const types = await Type.find();
+   
+    console.log("Veriler 1")
+    console.log(types);
+    res.send(types);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 //read levels- veri listeleme
 router.get('/contents', async (req, res) => {
   try {
@@ -198,6 +244,16 @@ router
   .put(async (req, res) => {
     console.log("Verileri güncelle apiye girdi");
     await Content.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(content => res.json(content))
+    .catch(err => res.status(500).json({ error: err.message }));
+  });
+
+  //UPDATE TYPE
+  router
+  .route("/update-type/:id")
+  .put(async (req, res) => {
+    console.log("Verileri güncelle apiye girdi");
+    await Type.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(content => res.json(content))
     .catch(err => res.status(500).json({ error: err.message }));
   });
@@ -252,6 +308,21 @@ router.delete("/delete-level/:id", async (req, res, next) => {
   try {
     console.log(req.params.id);
     const removedValue = await Level.findByIdAndRemove(req.params.id);
+    console.log(removedValue);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+
+
+});
+
+// Delete Type
+router.delete("/delete-type/:id", async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    const removedValue = await Type.findByIdAndRemove(req.params.id);
     console.log(removedValue);
     
   } catch (err) {

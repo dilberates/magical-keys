@@ -56,7 +56,7 @@ export default function AddContentTypePage()  {
         <form onSubmit={handleSubmitAddNewType}>
   <div class="form-group">
     <label for="exampleFormControlInput1">Tip Adı</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Grade-1 ..." onChange={(e) => setTypeName(e.target.value)}/>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tip Adı" onChange={(e) => setTypeName(e.target.value)}/>
   </div>
   <br></br>
   <button type="submit" class="btn btn-primary">Kaydet</button>

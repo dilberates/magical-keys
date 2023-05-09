@@ -55,8 +55,11 @@ mongoose
       email
       
     });
+    //öğrenci eklendiğinde otomatik sadece level'ın priority'si 1 gelecek şekilde diğer alanlar
+    // 0 gelecek şekilde eklenir sonradan ilerledikçe güncellenecek 2,3 gibi
+
     console.log("İd değeri : "+result._id);
-    const student_id = result._id;
+    const student_id = result._id;//kaydedilen öğrencinin id'sini getiriyor
     const currentUser = await StudentLevel.findOne({student_id});
     const check = currentUser ==null || currentUser ==true;
     var levelPriority = 1;

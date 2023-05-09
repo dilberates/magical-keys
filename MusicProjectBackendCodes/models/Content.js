@@ -4,6 +4,7 @@ const ContentSchema = new mongoose.Schema(
     content_title:String,
     content_description:String,
     content_status:Boolean,
+    content_priority:Number,
     //ilişkili tablo bu şejilde verilir
     level_id: {
         type: mongoose.Schema.Types.ObjectId,

@@ -59,13 +59,39 @@ router.post("/add-level",async function(req,res){
     if (oldLevel) {
       return res.json({ error: "Level Exists" });
     }
+    //kilit için priority değerleri
+    const level_priority=1;
+    var levelPriority=1;
+    const oldLevelPriority = await Level.findOne({ level_priority });
+    console.log("Old Level Priority :"+oldLevelPriority);
+    const check = oldLevelPriority==null || oldLevelPriority==true;
+    console.log("Check :"+check);
+    if (check) {
+      levelPriority=1;
+  
+    }else{
+      console.log("deneme priority");
+      
+      const lastLevelPriority2 = await Level.findOne({ level_priority: { $exists: true } }, { sort: { level_priority: -1 } },{ level_priority: 1 });
 
+      console.log("Last Level Priority"+lastLevelPriority2);
+
+      const levelPriorityValue = await Level.findOne({ _id: lastLevelPriority2 }, { level_priority: 1 });
+
+      levelPriority = levelPriorityValue.level_priority +1;
+      console.log("Level Priority"+levelPriority);
+
+    }
     
+
     await Level.create({
       level_title,
       level_description,
       level_status:levelStatus,
-      level_image
+      level_image,
+      level_priority:levelPriority
+      
+
     });
     
 
@@ -113,10 +139,32 @@ try {
   if (oldContent) {
     return res.json({ error: "Content Exists" });
   }
+  const content_priority=1;
+  var contentPriority=1;
+  const oldContentPriority = await Content.findOne({ content_priority });
+  console.log("Old Content Priority :"+oldContentPriority);
+  const check = oldContentPriority==null || oldContentPriority==true;
+  console.log("Check :"+check);
+  if (check) {
+    contentPriority=1;
+  
+  }else{
+      
+    const lastContentPriority2 = await Content.findOne({ content_priority: { $exists: true } }, { sort: { content_priority: -1 } },{ content_priority: 1 });
+
+    console.log("Last Content Priority"+lastContentPriority2);
+
+    const contentPriorityValue = await Content.findOne({ _id: lastContentPriority2 }, { content_priority: 1 });
+
+    contentPriority = contentPriorityValue.content_priority +1;
+    console.log("Content Priority"+contentPriority);
+
+  }
   
   await Content.create({
     content_title,
     content_description,
+    content_priority:contentPriority,
     level_id:selectedValue,
     content_status:contentStatus
   });

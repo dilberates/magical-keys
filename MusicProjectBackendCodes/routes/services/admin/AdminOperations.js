@@ -62,12 +62,14 @@ router.post("/add-level",async function(req,res){
     //kilit için priority değerleri
     const level_priority=1;
     var levelPriority=1;
+    var completedStatus = false;
     const oldLevelPriority = await Level.findOne({ level_priority });
     console.log("Old Level Priority :"+oldLevelPriority);
     const check = oldLevelPriority==null || oldLevelPriority==true;
     console.log("Check :"+check);
     if (check) {
       levelPriority=1;
+      completedStatus=true;//1.öncelikli olan ilk derece olduğu için her zaman açık
   
     }else{
       console.log("deneme priority");
@@ -80,6 +82,7 @@ router.post("/add-level",async function(req,res){
 
       levelPriority = levelPriorityValue.level_priority +1;
       console.log("Level Priority"+levelPriority);
+      completedStatus=false;
 
     }
     
@@ -89,7 +92,8 @@ router.post("/add-level",async function(req,res){
       level_description,
       level_status:levelStatus,
       level_image,
-      level_priority:levelPriority
+      level_priority:levelPriority,
+      completed_status:completedStatus
       
 
     });
@@ -141,12 +145,14 @@ try {
   }
   const content_priority=1;
   var contentPriority=1;
+  var completedStatus = false;
   const oldContentPriority = await Content.findOne({ content_priority });
   console.log("Old Content Priority :"+oldContentPriority);
   const check = oldContentPriority==null || oldContentPriority==true;
   console.log("Check :"+check);
   if (check) {
     contentPriority=1;
+    completedStatus=true;//false olanda kilit olacak
   
   }else{
       
@@ -158,6 +164,7 @@ try {
 
     contentPriority = contentPriorityValue.content_priority +1;
     console.log("Content Priority"+contentPriority);
+    completedStatus=false;
 
   }
   
@@ -166,7 +173,9 @@ try {
     content_description,
     content_priority:contentPriority,
     level_id:selectedValue,
-    content_status:contentStatus
+    content_status:contentStatus,
+    completed_status:completedStatus
+
   });
   
 

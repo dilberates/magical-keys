@@ -30,6 +30,10 @@ mongoose
 
   const Student = mongoose.model("StudentInfo");
 
+  require("../../../models/StudentLevel");
+
+  const StudentLevel = mongoose.model("StudentLevel");
+
   router.post("/register-student",async function(req,res){
     const { username, password, confirmPassword, fullname,email} = req.body;
 
@@ -43,7 +47,7 @@ mongoose
       return res.json({ error: "User Exists" });
     }
     
-    await Student.create({
+    var result = await Student.create({
       username,
       password: encryptedPassword,
       confirmPassword:encryptedConfirmPassword,
@@ -51,6 +55,21 @@ mongoose
       email
       
     });
+    console.log("İd değeri : "+result._id);
+    const student_id = result._id;
+    const currentUser = await StudentLevel.findOne({student_id});
+    const check = currentUser ==null || currentUser ==true;
+    var levelPriority = 1;
+    var contentPriority = 0;
+    if(check){
+      await StudentLevel.create({
+        level_priority:levelPriority,
+        content_priority:contentPriority,
+        student_id:student_id
+        
+      });
+
+    }
     res.send({ status: "ok" });
   } catch (error) {
     res.send({ status: "error" });

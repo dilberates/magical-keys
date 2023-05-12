@@ -4,7 +4,10 @@ import {MdChevronLeft,MdChevronRight} from "react-icons/md";
 import axios from "axios";
 import {Routes, Route, useNavigate} from 'react-router-dom';
 const CourseCardSlider = (props)=>{
-  
+    const id = localStorage.getItem('userId');
+    console.log("Logged User Id in CourseCard"+id);//giriş yapanın id'sini buraya taşıyor
+    const [studentLevels, setStudentLevels] = useState([]);
+
     const slideLeft = () =>{
         var slider = document.getElementById("slider");
         slider.scrollLeft = slider.scrollLeft - 500;
@@ -20,6 +23,11 @@ const CourseCardSlider = (props)=>{
   useEffect(() => {
     axios.get('http://localhost:5000/levels')
       .then(response => setLevels(response.data))
+      .catch(error => console.error(error));
+  }, []);
+  useEffect(() => {
+    axios.get(`http://localhost:5000/student-levels/${id}`)
+      .then(response => setStudentLevels(response.data))
       .catch(error => console.error(error));
   }, []);
   console.log("Levels Değerleri React");

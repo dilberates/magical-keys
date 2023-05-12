@@ -36,6 +36,7 @@ mongoose
 
   router.post("/register-student",async function(req,res){
     const { username, password, confirmPassword, fullname,email} = req.body;
+    console.log("register student")
 
   const encryptedPassword = await bcrypt.hash(password, 10);
   const encryptedConfirmPassword = await bcrypt.hash(confirmPassword, 10);
@@ -93,7 +94,7 @@ mongoose
       });
   
       if (res.status(201)) {
-        return res.json({ status: "ok", data: token });
+        return res.json({ status: "ok", data: user._id });
       } else {
         return res.json({ error: "error" });
       }

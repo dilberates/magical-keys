@@ -8,6 +8,8 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import CourseCardSlider from '../core/CourseCardSlider';
 import SongCardSlider from '../core/SongCardSlider';
 export default function StudentLessonPage() {
+  const userId = localStorage.getItem('userId');
+  console.log("Logged User Id in Student Page"+userId);//giriş yapanın id'sini buraya taşıyor
 
     return (
       <div className="authentication">

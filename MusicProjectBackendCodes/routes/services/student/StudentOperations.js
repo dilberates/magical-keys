@@ -24,3 +24,27 @@ mongoose
     console.log("Connected to database");
   })
   .catch((e) => console.log(e));
+
+  require("../../../models/StudentLevel");
+
+const StudentLevel = mongoose.model("StudentLevel");
+
+//öğrencinin son seviye durumunu göstermek için giriş yapan öğrencinin student-level değerlerini getirir
+router
+  .route("/student-levels/:id")
+  // Get Single Student
+  .get(async (req, res) => {
+    const student_id = req.params.id;
+  try {
+    const studentLevels = await StudentLevel.findOne(student_id);
+   
+    console.log("Student Levels By Logged User")
+    console.log(studentLevels);
+    res.send(studentLevels);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+    
+  });

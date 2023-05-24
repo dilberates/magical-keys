@@ -155,7 +155,7 @@ function deleteContent(id) {
         </tbody>
 	</Table>
 	</div>
-  <Button onClick={addNewContent} size="sm" variant="success">Yeni Seviye</Button>
+  <Button onClick={addNewContent} size="sm" variant="success">Yeni Kurs</Button>
         </main>
       </div>
     )

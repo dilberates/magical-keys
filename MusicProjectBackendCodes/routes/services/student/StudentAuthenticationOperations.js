@@ -30,8 +30,13 @@ mongoose
 
   const Student = mongoose.model("StudentInfo");
 
+  require("../../../models/StudentLevel");
+
+  const StudentLevel = mongoose.model("StudentLevel");
+
   router.post("/register-student",async function(req,res){
     const { username, password, confirmPassword, fullname,email} = req.body;
+    console.log("register student")
 
   const encryptedPassword = await bcrypt.hash(password, 10);
   const encryptedConfirmPassword = await bcrypt.hash(confirmPassword, 10);
@@ -43,7 +48,7 @@ mongoose
       return res.json({ error: "User Exists" });
     }
     
-    await Student.create({
+    var result = await Student.create({
       username,
       password: encryptedPassword,
       confirmPassword:encryptedConfirmPassword,
@@ -51,6 +56,24 @@ mongoose
       email
       
     });
+    //öğrenci eklendiğinde otomatik sadece level'ın priority'si 1 gelecek şekilde diğer alanlar
+    // 0 gelecek şekilde eklenir sonradan ilerledikçe güncellenecek 2,3 gibi
+
+    console.log("İd değeri : "+result._id);
+    const student_id = result._id;//kaydedilen öğrencinin id'sini getiriyor
+    const currentUser = await StudentLevel.findOne({student_id});
+    const check = currentUser ==null || currentUser ==true;
+    var levelPriority = 1;
+    var contentPriority = 0;
+    if(check){
+      await StudentLevel.create({
+        level_priority:levelPriority,
+        content_priority:contentPriority,
+        student_id:student_id
+        
+      });
+
+    }
     res.send({ status: "ok" });
   } catch (error) {
     res.send({ status: "error" });
@@ -71,7 +94,7 @@ mongoose
       });
   
       if (res.status(201)) {
-        return res.json({ status: "ok", data: token });
+        return res.json({ status: "ok", data: user._id });
       } else {
         return res.json({ error: "error" });
       }

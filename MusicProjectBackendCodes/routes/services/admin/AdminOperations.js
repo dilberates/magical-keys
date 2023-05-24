@@ -8,7 +8,7 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-
+const MongoClient = require('mongodb').MongoClient;
 
 const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
@@ -22,8 +22,10 @@ mongoose
   })
   .then(() => {
     console.log("Connected to database");
+
   })
   .catch((e) => console.log(e));
+
 
 require("../../../models/Level");
 
@@ -32,29 +34,71 @@ const Level = mongoose.model("Level");
 require("../../../models/ContentType");
 const Type = mongoose.model("ContentType");
 
+function getNextSequenceValue(sequenceName){
+  var sequenceDocument = Level.findAndModify({
+     query:{_id: sequenceName },
+     update: {$inc:{sequence_value:1}},
+     new:true
+  });
+  return sequenceDocument.sequence_value;
+}
+
 require("../../../models/Content");
 
 const Content = mongoose.model("Content");
 
 //veri ekleme
 router.post("/add-level",async function(req,res){
-    const { level_title, level_description} = req.body;
+    const { level_title, level_description, level_image} = req.body;
 
   console.log("level title "+level_title);
   const levelStatus = true;
 
   try {
     
+    
     const oldLevel = await Level.findOne({ level_title });
 
     if (oldLevel) {
       return res.json({ error: "Level Exists" });
     }
+    //kilit için priority değerleri
+    const level_priority=1;
+    var levelPriority=1;
+    var completedStatus = false;
+    const oldLevelPriority = await Level.findOne({ level_priority });
+    console.log("Old Level Priority :"+oldLevelPriority);
+    const check = oldLevelPriority==null || oldLevelPriority==true;
+    console.log("Check :"+check);
+    if (check) {
+      levelPriority=1;
+      completedStatus=true;//1.öncelikli olan ilk derece olduğu için her zaman açık
+  
+    }else{
+      console.log("deneme priority");
+      
+      const lastLevelPriority2 = await Level.findOne({ level_priority: { $exists: true } }, { sort: { level_priority: -1 } },{ level_priority: 1 });
+
+      console.log("Last Level Priority"+lastLevelPriority2);
+
+      const levelPriorityValue = await Level.findOne({ _id: lastLevelPriority2 }, { level_priority: 1 });
+
+      levelPriority = levelPriorityValue.level_priority +1;
+      console.log("Level Priority"+levelPriority);
+      completedStatus=false;
+
+    }
     
+
     await Level.create({
       level_title,
       level_description,
-      level_status:levelStatus
+      level_status:levelStatus,
+      level_image,
+      level_priority:levelPriority,
+      completed_status:completedStatus
+      
+
     });
     
 
@@ -153,12 +197,39 @@ try {
   if (oldContent) {
     return res.json({ error: "Content Exists" });
   }
+  const content_priority=1;
+  var contentPriority=1;
+  var completedStatus = false;
+  const oldContentPriority = await Content.findOne({ content_priority });
+  console.log("Old Content Priority :"+oldContentPriority);
+  const check = oldContentPriority==null || oldContentPriority==true;
+  console.log("Check :"+check);
+  if (check) {
+    contentPriority=1;
+    completedStatus=true;//false olanda kilit olacak
+  
+  }else{
+      
+    const lastContentPriority2 = await Content.findOne({ content_priority: { $exists: true } }, { sort: { content_priority: -1 } },{ content_priority: 1 });
+
+    console.log("Last Content Priority"+lastContentPriority2);
+
+    const contentPriorityValue = await Content.findOne({ _id: lastContentPriority2 }, { content_priority: 1 });
+
+    contentPriority = contentPriorityValue.content_priority +1;
+    console.log("Content Priority"+contentPriority);
+    completedStatus=false;
+
+  }
   
   await Content.create({
     content_title,
     content_description,
+    content_priority:contentPriority,
     level_id:selectedValue,
-    content_status:contentStatus
+    content_status:contentStatus,
+    completed_status:completedStatus
+
   });
   
 

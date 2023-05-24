@@ -10,7 +10,7 @@ export default function StudentAuthenticationPage() {
   const [email, setEmail] = useState("");
  
   const navigateToStudentMainPage = () => {
-    navigate('/studentMainPage');
+    navigate('/getStudentLessons');
   };
 
   function handleSubmitForLogin(e) {
@@ -34,10 +34,13 @@ export default function StudentAuthenticationPage() {
       .then((data) => {
         console.log(data, "userRegister");
         if (data.status == "ok") {
+          console.log("Logged User Id : "+data.data);
+          window.localStorage.setItem('userId', data.data);
           alert("login successful");
         
-          window.localStorage.setItem("token", data.data);
+          //window.localStorage.setItem("token", data.token);
           window.localStorage.setItem("loggedIn", true);
+          
 
           navigateToStudentMainPage();//giriş başarılı ise bu sayfaya yönlendirsin
         }

@@ -22,6 +22,7 @@ import GetTypesPage from './components/admin/ContentTypeOperations/get_types_pag
 import GetSubContentsPage from './components/admin/SubContenOperations/get_sub_contents_page';
 import AddSubContentPage from './components/admin/SubContenOperations/add_Subcontent_page';
 import StudentLessonsPage from './components/student/student_lessons_page';
+import StudentContentPage from './components/student/student_contents_page';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -56,6 +57,7 @@ function App() {
            <Route path="/getTypesPage" element={<GetTypesPage/>} />
            <Route path="/addSubContentsPage" element={<AddSubContentPage/>} />
            <Route path="/getStudentLessons" element={<StudentLessonsPage></StudentLessonsPage>} />
+           <Route path="/level-courses/:id" element={<StudentContentPage></StudentContentPage>} />
      
         </Routes>
     

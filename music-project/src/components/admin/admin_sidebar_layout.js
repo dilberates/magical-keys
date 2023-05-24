@@ -15,12 +15,7 @@ export default function AdminSidebarLayout() {
 
     <ul className="sidebar-nav" id="sidebar-nav">
 
-      <li className="nav-item">
-        <a className="nav-link " href="index.html">
-          <i className="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
+     
 
       <li className="nav-item">
         <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="http://localhost:3000/getLevelsPage">
@@ -33,6 +28,23 @@ export default function AdminSidebarLayout() {
       <li className="nav-item">
         <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="http://localhost:3000/getContentsPage">
           <i className="bi bi-journal-text"></i><span>Kurslar</span>
+        </a>
+     
+      </li>
+      <li className="nav-item">
+        <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="http://localhost:3000/getTypesPage">
+          <i className="bi bi-signpost"></i><span>İçerik Tipleri</span>
+        </a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="http://localhost:3000/addSubContentsPage">
+          <i className="bi bi-collection"></i><span>İçerikler</span>
+        </a>
+     
+      </li>
+      <li className="nav-item">
+        <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="http://localhost:3000/getContentsPage">
+          <i className="bi bi-signpost-split"></i><span>Alt İçerikler</span>
         </a>
      
       </li>

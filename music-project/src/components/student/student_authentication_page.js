@@ -17,7 +17,7 @@ export default function StudentAuthenticationPage() {
     e.preventDefault();
 
     console.log(username, password);
-    fetch("http://localhost:5000/login-student", {
+    fetch("http://localhost:5001/login-student", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -52,7 +52,7 @@ export default function StudentAuthenticationPage() {
     e.preventDefault();
 
       console.log(username, password, confirmPassword, fullname,email);
-      fetch("http://localhost:5000/register-student", {
+      fetch("http://localhost:5001/register-student", {
         method: "POST",
         crossDomain: true,
         headers: {

@@ -17,6 +17,10 @@ import AddLevelsPage from './components/admin/LevelOperations/add_levels_page';
 import EditLevelPage from './components/admin/LevelOperations/edit_level_page';
 import AddContentPage from './components/admin/ContentOperations/add_content_page';
 import GetContentsPage from './components/admin/ContentOperations/get_contents_page';
+import AddContentTypePage from './components/admin/ContentTypeOperations/add_contentType_page';
+import GetTypesPage from './components/admin/ContentTypeOperations/get_types_page';
+import GetSubContentsPage from './components/admin/SubContenOperations/get_sub_contents_page';
+import AddSubContentPage from './components/admin/SubContenOperations/add_Subcontent_page';
 import StudentLessonsPage from './components/student/student_lessons_page';
 
 function App() {
@@ -43,10 +47,14 @@ function App() {
            <Route path="/studentForgotMyPassword" element={<StudentForgotMyPassword/>} />
            <Route path="/getLevelsPage" element={<GetLevelsPage/>} />
            <Route path="/addNewLevel" element={<AddLevelsPage/>} />
+           <Route path="/addNewTypes" element={<AddContentTypePage/>} />
            <Route path="/edit-level/:id" element={<EditLevelPage/>} />
            <Route path="/addNewContent" element={<AddContentPage/>} />
            <Route path="/getContentsPage" element={<GetContentsPage/>} />
+           <Route path="/getSubContentsPage" element={<GetSubContentsPage/>} />
            <Route path="/addNewContent" element={<AddContentPage/>} />
+           <Route path="/getTypesPage" element={<GetTypesPage/>} />
+           <Route path="/addSubContentsPage" element={<AddSubContentPage/>} />
            <Route path="/getStudentLessons" element={<StudentLessonsPage></StudentLessonsPage>} />
      
         </Routes>

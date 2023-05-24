@@ -24297,7 +24297,7 @@
 
         if (daysDiff < MIN_ZOOM_DAYS) {
           w.globals.disableZoomIn = true;
-        } else if (daysDiff > 50000) {
+        } else if (daysDiff > 270170) {
           w.globals.disableZoomOut = true;
         }
 

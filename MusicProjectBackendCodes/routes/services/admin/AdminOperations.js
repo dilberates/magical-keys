@@ -31,6 +31,9 @@ require("../../../models/Level");
 
 const Level = mongoose.model("Level");
 
+require("../../../models/ContentType");
+const Type = mongoose.model("ContentType");
+
 function getNextSequenceValue(sequenceName){
   var sequenceDocument = Level.findAndModify({
      query:{_id: sequenceName },
@@ -105,6 +108,34 @@ router.post("/add-level",async function(req,res){
   }
     
 });
+
+// Type Ekleme 
+router.post("/add-type",async function(req,res){
+  const { type_name} = req.body;
+
+console.log("type name "+type_name);
+const type_status = true;
+
+try {
+  
+  const oldType = await Type.findOne({ type_name });
+
+  if (oldType) {
+    return res.json({ error: "Type Exists" });
+  }
+  
+  await Type.create({
+    type_name,
+    type_status:type_status
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
+});
 // Veri listeleme endpoint'i
 router.get('/content-levels',async (req, res) => {
   /*
@@ -119,6 +150,29 @@ router.get('/content-levels',async (req, res) => {
     const result = await Level.find();
    
     console.log("Seviyeler")
+    console.log(result);
+    res.send(result);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+ 
+});
+
+router.get('/sub-content-types',async (req, res) => {
+  /*
+  await Level.find({}).toArray((err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+  */
+  
+
+  try {
+    const result = await Type.find();
+   
+    console.log("Tipler")
     console.log(result);
     res.send(result);
     
@@ -185,6 +239,37 @@ try {
 }
   
 });
+
+// Veri kaydetme endpoint'i
+router.post("/add-new-sub-content",async function(req,res){
+  const { sub_content_title,selectedValue,selectedValue2} = req.body;
+console.log("type id "+selectedValue);
+console.log("type id "+selectedValue2);
+const subContentStatus = true;
+
+try {
+  
+  const oldContent = await Type.findOne({ sub_content_title });
+  const oldContent2 = await Level.findOne({ sub_content_title });
+
+  if (oldContent && oldContent2) {
+    return res.json({ error: "Content Exists" });
+  }
+  
+  await Content.create({
+    sub_content_title,
+   type_id:selectedValue,
+   content_id:selectedValue2,
+    sub_content_status:contentStatus
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
+});
 //New Content Add
 //veri ekleme
 router.post("/add-content",async function(req,res){
@@ -217,7 +302,7 @@ try {
 
 
 
-// CREATE Student
+// CREATE LEVEL
 router.post("/create-level", (req, res, next) => {
   Level.create(req.body, (error, data) => {
     if (error) {
@@ -237,6 +322,21 @@ router.get('/levels', async (req, res) => {
     console.log("Veriler 1")
     console.log(levels);
     res.send(levels);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//read types- veri listeleme
+router.get('/types', async (req, res) => {
+  try {
+    const types = await Type.find();
+   
+    console.log("Veriler 1")
+    console.log(types);
+    res.send(types);
     
   } catch (err) {
     console.error(err.message);
@@ -269,6 +369,16 @@ router
   .put(async (req, res) => {
     console.log("Verileri güncelle apiye girdi");
     await Content.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(content => res.json(content))
+    .catch(err => res.status(500).json({ error: err.message }));
+  });
+
+  //UPDATE TYPE
+  router
+  .route("/update-type/:id")
+  .put(async (req, res) => {
+    console.log("Verileri güncelle apiye girdi");
+    await Type.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(content => res.json(content))
     .catch(err => res.status(500).json({ error: err.message }));
   });
@@ -323,6 +433,21 @@ router.delete("/delete-level/:id", async (req, res, next) => {
   try {
     console.log(req.params.id);
     const removedValue = await Level.findByIdAndRemove(req.params.id);
+    console.log(removedValue);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+
+
+});
+
+// Delete Type
+router.delete("/delete-type/:id", async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    const removedValue = await Type.findByIdAndRemove(req.params.id);
     console.log(removedValue);
     
   } catch (err) {

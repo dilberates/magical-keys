@@ -21,13 +21,13 @@ const CourseCardSlider = (props)=>{
     const [levels, setLevels] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/levels')
+    axios.get('http://localhost:5001/levels')
       .then(response => setLevels(response.data))
       .catch(error => console.error(error));
   }, []);
   
   useEffect(() => {
-    axios.get(`http://localhost:5000/student-levels/${id}`)
+    axios.get(`http://localhost:5001/student-levels/${id}`)
       .then(response => setStudentLevels(response.data))
       .catch(error => console.error(error));
   }, []);

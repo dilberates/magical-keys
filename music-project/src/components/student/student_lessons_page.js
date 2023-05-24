@@ -20,12 +20,14 @@ export default function StudentLessonPage() {
        
        <div className='col-12'>
          <div className='row lessons'>
+          <h2>DERSLER</h2>
          
          <CourseCardSlider/>
          
 
          </div>
          <div className='row lessons'>
+         <h2>ŞARKILAR</h2>
          <SongCardSlider/>
            
            </div>

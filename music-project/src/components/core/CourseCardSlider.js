@@ -3,6 +3,7 @@ import "../../css/coursespage.css";
 import {MdChevronLeft,MdChevronRight} from "react-icons/md";
 import axios from "axios";
 import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const CourseCardSlider = (props)=>{
     const id = localStorage.getItem('userId');
     console.log("Logged User Id in CourseCard"+id);//giriş yapanın id'sini buraya taşıyor
@@ -45,14 +46,17 @@ const CourseCardSlider = (props)=>{
                         levels.map((level) => {
                             return(
                                 <div className='slider-card' key={level._id}>
+                                    <Link to={`/level-courses/${level._id}`} className='slider-card-link'>
                                     <div className='slider-card-image' style={{backgroundImage: `url(${level.level_image})`}}
 
 >
-                                    
-                                        
+ 
 
                                     </div>
                                     <p className='slider-card-title'>{level.level_title}</p>
+                                        
+                                    </Link>
+                                  
                                     <p className='slider-card-description'>{level.level_description}</p>
                                     
 

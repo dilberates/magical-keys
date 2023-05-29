@@ -17,6 +17,9 @@ const studentAuthenticationRoutes = require("./routes/services/student/StudentAu
 app.use(studentAuthenticationRoutes);
 const teacherAuthenticationRoutes = require("./routes/services/teacher/TeacherAuthenticationOperations");
 app.use(teacherAuthenticationRoutes);
+const studentRoutes = require("./routes/services/student/StudentOperations");
+app.use(studentRoutes);
+
 
 app.listen(5001,()=>{
     console.log("Server started");

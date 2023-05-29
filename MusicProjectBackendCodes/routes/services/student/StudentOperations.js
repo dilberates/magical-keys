@@ -30,21 +30,23 @@ mongoose
 const StudentLevel = mongoose.model("StudentLevel");
 
 //öğrencinin son seviye durumunu göstermek için giriş yapan öğrencinin student-level değerlerini getirir
-router
-  .route("/student-levels/:id")
-  // Get Single Student
-  .get(async (req, res) => {
-    const student_id = req.params.id;
+
+router.get('/student-levels-by-id/:studentId', async (req, res) => {
+  console.log("istek kontrol");
+  const studentId = req.params.studentId;
+  console.log("istek kontrol id değeri"+studentId);
   try {
-    const studentLevels = await StudentLevel.findOne(student_id);
-   
+    //const studentLevels = await StudentLevel.findOne(studentId);
+    //const filteredLevels = StudentLevel.filter(level => level.student_id === studentId);
+    const filteredLevels2 = await StudentLevel.find({ student_id: studentId });
     console.log("Student Levels By Logged User")
-    console.log(studentLevels);
-    res.send(studentLevels);
+    console.log(filteredLevels2);
+    res.json(filteredLevels2);
     
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
-    
-  });
+
+});
+module.exports=router;

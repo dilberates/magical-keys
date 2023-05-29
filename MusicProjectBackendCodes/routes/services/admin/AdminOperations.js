@@ -149,8 +149,8 @@ router.get('/content-levels',async (req, res) => {
   try {
     const result = await Level.find();
    
-    console.log("Seviyeler")
-    console.log(result);
+    //console.log("Seviyeler")
+    //console.log(result);
     res.send(result);
     
   } catch (err) {
@@ -319,8 +319,8 @@ router.get('/levels', async (req, res) => {
   try {
     const levels = await Level.find();
    
-    console.log("Veriler 1")
-    console.log(levels);
+    //console.log("Veriler 1")
+    //console.log(levels);
     res.send(levels);
     
   } catch (err) {

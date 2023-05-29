@@ -25,9 +25,10 @@ mongoose
   })
   .catch((e) => console.log(e));
 
-  require("../../../models/StudentLevel");
+require("../../../models/StudentLevel");
 
 const StudentLevel = mongoose.model("StudentLevel");
+
 
 //öğrencinin son seviye durumunu göstermek için giriş yapan öğrencinin student-level değerlerini getirir
 

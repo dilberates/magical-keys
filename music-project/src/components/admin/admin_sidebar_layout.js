@@ -48,6 +48,12 @@ export default function AdminSidebarLayout() {
         </a>
      
       </li>
+      <li className="nav-item">
+        <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="http://localhost:3000/getSongPage">
+          <i className="bi bi-signpost-split"></i><span>Şarkılar</span>
+        </a>
+     
+      </li>
 
   
 

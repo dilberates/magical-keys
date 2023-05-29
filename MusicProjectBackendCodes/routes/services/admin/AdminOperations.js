@@ -33,6 +33,9 @@ const Level = mongoose.model("Level");
 
 require("../../../models/ContentType");
 const Type = mongoose.model("ContentType");
+require("../../../models/Song");
+
+const Song = mongoose.model("Song");
 
 function getNextSequenceValue(sequenceName){
   var sequenceDocument = Level.findAndModify({
@@ -107,6 +110,37 @@ router.post("/add-level",async function(req,res){
     res.send({ status: "error" });
   }
     
+});
+//şarkı ekleme
+router.post("/add-song",async function(req,res){
+  const { song_name, song_description, song_image} = req.body;
+
+console.log("song title "+song_name);
+const songStatus = true;
+
+try {
+  
+  
+  const oldSong = await Song.findOne({ song_name });
+
+  if (oldSong) {
+    return res.json({ error: "Song Exists" });
+  }
+
+
+  await Song.create({
+    song_name,
+    song_description,
+    song_status:songStatus,
+    song_image,
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
 });
 
 // Type Ekleme 
@@ -328,6 +362,21 @@ router.get('/levels', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+//read songs- veri listeleme
+router.get('/songs', async (req, res) => {
+  try {
+    const songs = await Song.find();
+   
+    //console.log("Veriler 1")
+    //console.log(levels);
+    res.send(songs);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 //read types- veri listeleme
 router.get('/types', async (req, res) => {

@@ -23,6 +23,8 @@ import GetSubContentsPage from './components/admin/SubContenOperations/get_sub_c
 import AddSubContentPage from './components/admin/SubContenOperations/add_Subcontent_page';
 import StudentLessonsPage from './components/student/student_lessons_page';
 import StudentContentPage from './components/student/student_contents_page';
+import GetSongsPage from './components/admin/SongOperations/get_songs_page';
+import AddSongsPage from './components/admin/SongOperations/add_song_page';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -57,6 +59,8 @@ function App() {
            <Route path="/getTypesPage" element={<GetTypesPage/>} />
            <Route path="/addSubContentsPage" element={<AddSubContentPage/>} />
            <Route path="/getStudentLessons" element={<StudentLessonsPage></StudentLessonsPage>} />
+           <Route path="/getSongPage" element={<GetSongsPage></GetSongsPage>} />
+           <Route path="/addNewSong" element={<AddSongsPage></AddSongsPage>} />
            <Route path="/level-courses/:id" element={<StudentContentPage></StudentContentPage>} />
      
         </Routes>

@@ -1,0 +1,21 @@
+# Node modülleri
+node_modules/
+
+# Yerel geliştirme ortamı yapılandırma dosyaları
+.env
+
+# Derlenen dosyalar
+build/
+dist/
+*.bundle.js
+*.bundle.js.map
+
+# IDE ve metin editörü dosyaları
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Diğer geçici dosyalar
+.DS_Store
+Thumbs.db

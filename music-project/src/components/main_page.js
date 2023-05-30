@@ -15,13 +15,20 @@ export default function MainPage() {
       navigate('/authenticationPageStudent');
     };
     return (
-      <div className="button-container" style={{ 
+      <body style={{ 
           backgroundImage: `url(${process.env.PUBLIC_URL + '/img/background.png'})` ,
           backgroundSize:'cover'
         }}>
-  <button className="buttonEnter" onClick={navigateToSignInUpStudent}>Öğrenci Giriş/Kayıt Sayfası</button>
-  <button className="buttonEnter" onClick={navigateToSignInUp}>Öğretmen Giriş/Kayıt Sayfası</button>
+      <div>
+      <div className="button-container">
+          
+    
+  
+  <button className="button-73" onClick={navigateToSignInUpStudent}>Öğrenci Giriş/Kayıt Sayfası</button>
+  <button className="button-73" onClick={navigateToSignInUp}>Öğretmen Giriş/Kayıt Sayfası</button>
 </div>
+</div>
+</body>
   );
 
 

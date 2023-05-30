@@ -1,21 +1,75 @@
 .button-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items:center;
     height: 100vh;
 }
 .buttonEnter {
-    margin: 0 10px;
+    margin: 0 80px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 24px;
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
-    width: 300px;
-    height: 50px;
+    width: 400px;
+    height: 150px;
+    
 }
 .buttonEnter:hover{
 	background: #6d44b8;
 }
+.button-73 {
+    width: 300px;
+    height: 100px;
+  margin: 0 80px;
+  padding: 10px 20px;
+  appearance: none;
+  background-color: #b84f77;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #3c1347 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #e7e2e2;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -.24px;
+  outline: none;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+}
+
+.button-73:hover {
+  background-color: #FFC229;
+  box-shadow: #FF6314 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+.button-73:active {
+  transform: scale(1.025);
+}
+
+@media (min-width: 768px) {
+  .button-73 {
+    font-size: 1.5rem;
+    padding: .75rem 2rem;
+  }
+}
+header h1 {
+    font-size: 70px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #38314c, #5959d0);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }

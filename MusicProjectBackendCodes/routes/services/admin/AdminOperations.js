@@ -219,7 +219,7 @@ router.get('/sub-content-types',async (req, res) => {
 
 // Veri kaydetme endpoint'i
 router.post("/add-new-content",async function(req,res){
-  const { content_title, content_description,selectedValue} = req.body;
+  const { content_title, content_description,content_image,selectedValue} = req.body;
   console.log("content title "+content_title);
 console.log("level id "+selectedValue);
 const contentStatus = true;
@@ -259,6 +259,7 @@ try {
   await Content.create({
     content_title,
     content_description,
+    content_image,
     content_priority:contentPriority,
     level_id:selectedValue,
     content_status:contentStatus,

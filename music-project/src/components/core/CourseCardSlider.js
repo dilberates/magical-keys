@@ -78,6 +78,7 @@ const CourseCardSlider = (props)=>{
                                 return(
                                     <div className='slider-card' key={level._id}>
                                         <Link to={`/level-courses/${level._id}`} className='slider-card-link'>
+                                            {window.localStorage.setItem('levelId', level._id)}
                                         <div className='slider-card-image' style={{backgroundImage: `url(${level.level_image})`}}
     
     >

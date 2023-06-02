@@ -31,11 +31,14 @@ require("../../../models/Level");
 
 const Level = mongoose.model("Level");
 
+
 require("../../../models/ContentType");
 const Type = mongoose.model("ContentType");
 require("../../../models/Song");
 
 const Song = mongoose.model("Song");
+require("../../../models/SubContent")
+const SubContent = mongoose.model("SubContent");
 
 function getNextSequenceValue(sequenceName){
   var sequenceDocument = Level.findAndModify({
@@ -193,6 +196,29 @@ router.get('/content-levels',async (req, res) => {
   }
  
 });
+// Veri listeleme endpoint'i
+router.get('/subcontent-contents',async (req, res) => {
+  /*
+  await Level.find({}).toArray((err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+  */
+  
+
+  try {
+    const result = await Content.find();
+   
+    //console.log("Seviyeler")
+    //console.log(result);
+    res.send(result);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+ 
+});
 
 router.get('/sub-content-types',async (req, res) => {
   /*
@@ -277,25 +303,22 @@ try {
 
 // Veri kaydetme endpoint'i
 router.post("/add-new-sub-content",async function(req,res){
-  const { sub_content_title,selectedValue,selectedValue2} = req.body;
-console.log("type id "+selectedValue);
-console.log("type id "+selectedValue2);
+  const { sub_content_title,sub_content_description,sub_content_image,selectedContent,selectedContentType} = req.body;
+console.log("selected content id "+selectedContent);
+console.log("selected content type id "+selectedContentType);
 const subContentStatus = true;
 
 try {
   
-  const oldContent = await Type.findOne({ sub_content_title });
-  const oldContent2 = await Level.findOne({ sub_content_title });
-
-  if (oldContent && oldContent2) {
-    return res.json({ error: "Content Exists" });
-  }
   
-  await Content.create({
+  
+  await SubContent.create({
     sub_content_title,
-   type_id:selectedValue,
-   content_id:selectedValue2,
-    sub_content_status:contentStatus
+    sub_content_description,
+    sub_content_image,
+    type_id:selectedContentType,
+    content_id:selectedContent,
+    sub_content_status:subContentStatus
   });
   
 
@@ -405,6 +428,23 @@ router.get('/contents', async (req, res) => {
   
   
     res.send(contentsValues);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+//read subcontents- veri listeleme
+router.get('/subContents', async (req, res) => {
+  try {
+    
+    //ilişkili tablodan değer getirme
+   const subContentsValues = await SubContent.find().populate('content_id').populate('type_id').exec();
+   console.log("SubContents Değerleri");
+   console.log(subContentsValues);
+  
+  
+    res.send(subContentsValues);
     
   } catch (err) {
     console.error(err.message);

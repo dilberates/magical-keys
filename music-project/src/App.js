@@ -25,6 +25,7 @@ import GetSongsPage from './components/admin/SongOperations/get_songs_page';
 import AddSongsPage from './components/admin/SongOperations/add_song_page';
 import GetSubContentsPage from './components/admin/SubContentOperations/get_sub_contents_page';
 import AddSubContentPage from './components/admin/SubContentOperations/add_new_subcontent_page';
+import StudentSubContentPage from './components/student/student_subcontents_page';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
            <Route path="/getSongPage" element={<GetSongsPage></GetSongsPage>} />
            <Route path="/addNewSong" element={<AddSongsPage></AddSongsPage>} />
            <Route path="/level-courses/:id" element={<StudentContentPage></StudentContentPage>} />
+           <Route path="/content-subcontents/:id" element={<StudentSubContentPage/>} />
      
         </Routes>
     

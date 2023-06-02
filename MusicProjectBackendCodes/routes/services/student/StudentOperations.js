@@ -32,6 +32,8 @@ const StudentLevel = mongoose.model("StudentLevel");
 require("../../../models/Content");
 
 const Content = mongoose.model("Content");
+require("../../../models/SubContent")
+const SubContent = mongoose.model("SubContent");
 
 
 //öğrencinin son seviye durumunu göstermek için giriş yapan öğrencinin student-level değerlerini getirir
@@ -73,4 +75,25 @@ router.get('/courses-by-level-id/:levelId', async (req, res) => {
   }
 
 });
+
+router.get('/sub-contents-by-content-id/:contentId', async (req, res) => {
+  console.log("istek kontrol");
+  const contentId = req.params.contentId;
+  console.log("istek kontrol id değeri"+contentId);
+  try {
+    //const studentLevels = await StudentLevel.findOne(studentId);
+    //const filteredLevels = StudentLevel.filter(level => level.student_id === studentId);
+    console.log("sub-contents-by-content-id bunun içinde");
+    const filteredCourses = await SubContent.find({ content_id: contentId }).populate('content_id').populate('type_id').exec();;
+    console.log("Level Courses By Selected Content")
+    console.log(filteredCourses);
+    res.json(filteredCourses);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+
+});
 module.exports=router;
+

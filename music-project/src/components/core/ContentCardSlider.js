@@ -75,7 +75,7 @@ console.log(levelCourses);
                         
                               return(
                                   <div className='slider-card' key={levelCourse._id}>
-                                      <Link to={`/level-courses/${levelCourse._id}`} className='slider-card-link'>
+                                      <Link to={`/content-subcontents/${levelCourse._id}`} className='slider-card-link'>
                                           {window.localStorage.setItem('courseId', levelCourse._id)}
                                       <div className='slider-card-image' style={{backgroundImage: `url(${levelCourse.content_image})`}}
   

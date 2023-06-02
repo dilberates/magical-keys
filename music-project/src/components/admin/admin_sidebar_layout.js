@@ -43,7 +43,7 @@ export default function AdminSidebarLayout() {
      
       </li>
       <li className="nav-item">
-        <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="http://localhost:3000/getContentsPage">
+        <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="http://localhost:3000/getSubContentsPage">
           <i className="bi bi-signpost-split"></i><span>Alt İçerikler</span>
         </a>
      

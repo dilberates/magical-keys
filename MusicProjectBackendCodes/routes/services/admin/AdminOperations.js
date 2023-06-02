@@ -311,11 +311,6 @@ const subContentStatus = true;
 try {
   
   
-  const oldSubContent = await SubContent.findOne({ sub_content_title });
-
-  if (oldSubContent) {
-    return res.json({ error: "Sub Content Exists" });
-  }
   
   await SubContent.create({
     sub_content_title,

@@ -31,8 +31,14 @@ require("../../../models/Level");
 
 const Level = mongoose.model("Level");
 
+
 require("../../../models/ContentType");
 const Type = mongoose.model("ContentType");
+require("../../../models/Song");
+
+const Song = mongoose.model("Song");
+require("../../../models/SubContent")
+const SubContent = mongoose.model("SubContent");
 
 function getNextSequenceValue(sequenceName){
   var sequenceDocument = Level.findAndModify({
@@ -108,6 +114,37 @@ router.post("/add-level",async function(req,res){
   }
     
 });
+//şarkı ekleme
+router.post("/add-song",async function(req,res){
+  const { song_name, song_description, song_image} = req.body;
+
+console.log("song title "+song_name);
+const songStatus = true;
+
+try {
+  
+  
+  const oldSong = await Song.findOne({ song_name });
+
+  if (oldSong) {
+    return res.json({ error: "Song Exists" });
+  }
+
+
+  await Song.create({
+    song_name,
+    song_description,
+    song_status:songStatus,
+    song_image,
+  });
+  
+
+  res.send({ status: "ok" });
+} catch (error) {
+  res.send({ status: "error" });
+}
+  
+});
 
 // Type Ekleme 
 router.post("/add-type",async function(req,res){
@@ -149,8 +186,31 @@ router.get('/content-levels',async (req, res) => {
   try {
     const result = await Level.find();
    
-    console.log("Seviyeler")
-    console.log(result);
+    //console.log("Seviyeler")
+    //console.log(result);
+    res.send(result);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+ 
+});
+// Veri listeleme endpoint'i
+router.get('/subcontent-contents',async (req, res) => {
+  /*
+  await Level.find({}).toArray((err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+  */
+  
+
+  try {
+    const result = await Content.find();
+   
+    //console.log("Seviyeler")
+    //console.log(result);
     res.send(result);
     
   } catch (err) {
@@ -185,7 +245,7 @@ router.get('/sub-content-types',async (req, res) => {
 
 // Veri kaydetme endpoint'i
 router.post("/add-new-content",async function(req,res){
-  const { content_title, content_description,selectedValue} = req.body;
+  const { content_title, content_description,content_image,selectedValue} = req.body;
   console.log("content title "+content_title);
 console.log("level id "+selectedValue);
 const contentStatus = true;
@@ -225,6 +285,7 @@ try {
   await Content.create({
     content_title,
     content_description,
+    content_image,
     content_priority:contentPriority,
     level_id:selectedValue,
     content_status:contentStatus,
@@ -242,25 +303,22 @@ try {
 
 // Veri kaydetme endpoint'i
 router.post("/add-new-sub-content",async function(req,res){
-  const { sub_content_title,selectedValue,selectedValue2} = req.body;
-console.log("type id "+selectedValue);
-console.log("type id "+selectedValue2);
+  const { sub_content_title,sub_content_description,sub_content_image,selectedContent,selectedContentType} = req.body;
+console.log("selected content id "+selectedContent);
+console.log("selected content type id "+selectedContentType);
 const subContentStatus = true;
 
 try {
   
-  const oldContent = await Type.findOne({ sub_content_title });
-  const oldContent2 = await Level.findOne({ sub_content_title });
-
-  if (oldContent && oldContent2) {
-    return res.json({ error: "Content Exists" });
-  }
   
-  await Content.create({
+  
+  await SubContent.create({
     sub_content_title,
-   type_id:selectedValue,
-   content_id:selectedValue2,
-    sub_content_status:contentStatus
+    sub_content_description,
+    sub_content_image,
+    type_id:selectedContentType,
+    content_id:selectedContent,
+    sub_content_status:subContentStatus
   });
   
 
@@ -319,8 +377,8 @@ router.get('/levels', async (req, res) => {
   try {
     const levels = await Level.find();
    
-    console.log("Veriler 1")
-    console.log(levels);
+    //console.log("Veriler 1")
+    //console.log(levels);
     res.send(levels);
     
   } catch (err) {
@@ -328,6 +386,21 @@ router.get('/levels', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+//read songs- veri listeleme
+router.get('/songs', async (req, res) => {
+  try {
+    const songs = await Song.find();
+   
+    //console.log("Veriler 1")
+    //console.log(levels);
+    res.send(songs);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 //read types- veri listeleme
 router.get('/types', async (req, res) => {
@@ -355,6 +428,23 @@ router.get('/contents', async (req, res) => {
   
   
     res.send(contentsValues);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+//read subcontents- veri listeleme
+router.get('/subContents', async (req, res) => {
+  try {
+    
+    //ilişkili tablodan değer getirme
+   const subContentsValues = await SubContent.find().populate('content_id').populate('type_id').exec();
+   console.log("SubContents Değerleri");
+   console.log(subContentsValues);
+  
+  
+    res.send(subContentsValues);
     
   } catch (err) {
     console.error(err.message);

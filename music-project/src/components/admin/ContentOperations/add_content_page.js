@@ -6,6 +6,7 @@ import axios from "axios";
 export default function AddContentPage()  {
   const [content_title, setContentTitle] = useState("");
   const [content_description, setContentDescription] = useState("");
+  const [content_image, setContentImage] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const [options, setOptions] = useState([]);
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function AddContentPage()  {
         body: JSON.stringify({
           content_title,
           content_description,
+          content_image,
           selectedValue
 
         }),
@@ -86,6 +88,12 @@ export default function AddContentPage()  {
   </div>
   <br>
   </br>
+  <br></br>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">İçerik Görseli</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Görsel" onChange={(e) => setContentImage(e.target.value)}/>
+  </div>
+  <br></br>
   <br></br>
   <div class="form-group">
     <select value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)} class="form-control">

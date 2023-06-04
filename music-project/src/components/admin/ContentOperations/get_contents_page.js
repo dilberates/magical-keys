@@ -95,7 +95,7 @@ function deleteContent(id) {
         <AdminMenuLayout></AdminMenuLayout>
         <AdminSidebarLayout></AdminSidebarLayout>
         <main id="main" class="main">
-          <h2>Kurs Seviyeleri</h2>
+          <h2>Kurs İçerikleri</h2>
 
           <div className="table-wrapper">
 	<Table striped bordered hover>
@@ -105,8 +105,8 @@ function deleteContent(id) {
             <th>Kurs Adı</th>
             <th>Kurs Tanımı</th>
             <th>Seviye</th>
-			<th>Güncelle</th>
-            <th>Sil</th>
+			<th>Sil</th>
+            <th>Güncelle</th>
 		
 		</tr>
 		</thead>
